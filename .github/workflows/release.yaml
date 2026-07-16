@@ -34,6 +34,24 @@ jobs:
       - name: Read package version
         run: node -e "console.log('__OAS_VERSION=' + require('./package.json').version)" >> "$GITHUB_ENV"
 
+      - name: Resolve npm publish options
+        id: npm-publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [ -z "$NODE_AUTH_TOKEN" ]; then
+            echo "should_publish=false" >> "$GITHUB_OUTPUT"
+            echo "NPM_TOKEN is not configured; skipping npm publish."
+            exit 0
+          fi
+
+          node <<'NODE' >> "$GITHUB_OUTPUT"
+          const version = require('./package.json').version;
+          const publishArgs = version.includes('-') ? '--tag next --access public' : '--access public';
+          console.log('should_publish=true');
+          console.log(`publish_args=${publishArgs}`);
+          NODE
+
       - name: Create package.json for yaml package
         env:
           __PACKAGE_NAME: '@plugoinc/ocpi-openapi-yaml'
@@ -63,13 +81,15 @@ jobs:
           cat package.json
 
       - name: Publish yaml package to npmjs
-        run: npm publish --access public
+        if: steps.npm-publish.outputs.should_publish == 'true'
+        run: npm publish ${{ steps.npm-publish.outputs.publish_args }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         working-directory: ./dist/yaml
 
       - name: Publish dts package to npmjs
-        run: npm publish --access public
+        if: steps.npm-publish.outputs.should_publish == 'true'
+        run: npm publish ${{ steps.npm-publish.outputs.publish_args }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         working-directory: ./dist/dts
