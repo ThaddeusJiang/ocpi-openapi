@@ -1,13 +1,13 @@
-description: EnergySource class
+summary: EnergySource schema
 type: object
 required:
-  - source
-  - percentage
+- source
+- percentage
 properties:
   source:
     $ref: ./EnergySourceCategory.yaml
   percentage:
-    type: number
+    allOf:
+    - $ref: ./number.yaml
     minimum: 0
     maximum: 100
-    multipleOf: 0.01

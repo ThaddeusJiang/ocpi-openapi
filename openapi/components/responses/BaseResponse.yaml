@@ -1,18 +1,15 @@
+summary: OCPI response envelope
+type: object
 required:
-  - status_code
-  - timestamp
+- status_code
+- timestamp
 properties:
-  data:
-    description: |
-      * or ?
-      Contains the actual response data object or list of objects from each request, depending on the cardinality of the response data, this is an array (card. * or +), or a single object (card. 1 or ?)
+  data: {}
   status_code:
-    type: number
-    example: 200
+    type: integer
+    example: 1000
   status_message:
     type: string
-    example: OK
+    example: Success
   timestamp:
-    type: string
-    format: date-time
-    example: "2020-01-01T00:00:00Z"
+    $ref: ../schemas/DateTime.yaml

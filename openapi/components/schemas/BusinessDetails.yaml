@@ -1,14 +1,12 @@
-summary: BusinessDetails class
-
+summary: BusinessDetails schema
 type: object
 required:
-  - name
+- name
 properties:
   name:
     type: string
     maxLength: 100
-    description: Name of the operator.
   website:
-    $ref: URL.yaml
+    $ref: ./URL.yaml
   logo:
-    $ref: Image.yaml
+    $ref: ./Image.yaml

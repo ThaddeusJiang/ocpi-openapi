@@ -1,14 +1,13 @@
-required:
-  - dimensions
-  - start_date_time
+summary: ChargingPeriod schema
 type: object
+required:
+- start_date_time
 properties:
   start_date_time:
-    type: string
-    format: date-time
+    $ref: ./DateTime.yaml
   dimensions:
-    type: array
-    items:
-      $ref: ./CdrDimension.yaml
+    $ref: ./CdrDimension.yaml
   tariff_id:
     type: string
+    maxLength: 36
+    description: Case insensitive string.

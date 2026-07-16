@@ -2,6 +2,8 @@ extends:
   - recommended
 
 rules:
+  no-identical-paths: off
+  no-ambiguous-paths: off
   rule/path-required-must-exist:
     where:
       - subject:

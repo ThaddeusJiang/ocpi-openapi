@@ -1,0 +1,4 @@
+summary: List of ClientInfo objects
+type: array
+items:
+  $ref: ./ClientInfo.yaml

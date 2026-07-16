@@ -1,4 +1,5 @@
+summary: ChargingRateUnit enum
 type: string
 enum:
-  - W
-  - A
+- W
+- A

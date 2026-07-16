@@ -1,7 +1,7 @@
-description: Hours class
+summary: Hours schema
 type: object
 required:
-  - twentyfourseven
+- twentyfourseven
 properties:
   twentyfourseven:
     type: boolean
@@ -10,6 +10,10 @@ properties:
     items:
       $ref: ./RegularHours.yaml
   exceptional_openings:
-    $ref: ./ExceptionalPeriod.yaml
+    type: array
+    items:
+      $ref: ./ExceptionalPeriod.yaml
   exceptional_closings:
-    $ref: ./ExceptionalPeriod.yaml
+    type: array
+    items:
+      $ref: ./ExceptionalPeriod.yaml

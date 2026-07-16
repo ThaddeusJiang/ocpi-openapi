@@ -1,9 +1,12 @@
-required:
-  - response_url
-  - session_id
+summary: StopSession schema
 type: object
+required:
+- response_url
+- session_id
 properties:
   response_url:
-    type: string
+    $ref: ./URL.yaml
   session_id:
     type: string
+    maxLength: 36
+    description: Case insensitive string.

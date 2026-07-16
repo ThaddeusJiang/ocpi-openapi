@@ -1,4 +1,4 @@
-description: Token payload
+required: true
 content:
   application/json:
     schema:

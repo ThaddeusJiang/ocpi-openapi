@@ -1,6 +1,4 @@
 summary: party_id
 type: string
+minLength: 3
 maxLength: 3
-description: |
-  ID of the CPO (following the ISO-15118 standard).
-example: PLU

@@ -1,8 +1,8 @@
 summary: ParkingRestriction enum
 type: string
 enum:
-  - EV_ONLY
-  - PLUGGED
-  - DISABLED
-  - CUSTOMERS
-  - MOTORCYCLES
+- EV_ONLY
+- PLUGGED
+- DISABLED
+- CUSTOMERS
+- MOTORCYCLES

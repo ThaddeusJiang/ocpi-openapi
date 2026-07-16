@@ -1,9 +1,12 @@
-description: Success
+description: Command response
 content:
   application/json:
     schema:
       allOf:
-        - $ref: ./BaseResponse.yaml
-        - properties:
-            data:
-              $ref: ../schemas/CommandResponse.yaml
+      - $ref: ./BaseResponse.yaml
+      - type: object
+        required:
+        - data
+        properties:
+          data:
+            $ref: ../schemas/CommandResponse.yaml

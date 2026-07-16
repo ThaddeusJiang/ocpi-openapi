@@ -1,11 +1,15 @@
+summary: CommandResponse schema
 type: object
 required:
-  - result
-  - timeout
+- result
+- timeout
 properties:
   result:
-    $ref: ../schemas/CommandResponseType.yaml
+    $ref: ./CommandResponseType.yaml
   timeout:
     type: integer
+    minimum: 0
   message:
-    $ref: ../schemas/DisplayText.yaml
+    type: array
+    items:
+      $ref: ./DisplayText.yaml

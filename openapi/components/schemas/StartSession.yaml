@@ -1,18 +1,27 @@
-required:
-  - response_url
-  - token
-  - location_id
+summary: StartSession schema
 type: object
+required:
+- response_url
+- token
+- location_id
 properties:
   response_url:
-    type: string
+    $ref: ./URL.yaml
   token:
     $ref: ./Token.yaml
   location_id:
     type: string
+    maxLength: 36
+    description: Case insensitive string.
   evse_uid:
     type: string
+    maxLength: 36
+    description: Case insensitive string.
   connector_id:
     type: string
+    maxLength: 36
+    description: Case insensitive string.
   authorization_reference:
     type: string
+    maxLength: 36
+    description: Case insensitive string.

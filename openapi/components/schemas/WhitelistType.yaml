@@ -1,0 +1,7 @@
+summary: WhitelistType enum
+type: string
+enum:
+- ALWAYS
+- ALLOWED
+- ALLOWED_OFFLINE
+- NEVER

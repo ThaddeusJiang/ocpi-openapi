@@ -1,24 +1,10 @@
-required:
-  - type
-  - volume
+summary: CdrDimension schema
 type: object
+required:
+- type
+- volume
 properties:
   type:
-    type: string
-    enum:
-      - CURRENT
-      - ENERGY
-      - ENERGY_EXPORT
-      - ENERGY_IMPORT
-      - MAX_CURRENT
-      - MIN_CURRENT
-      - MAX_POWER
-      - MIN_POWER
-      - PARKING_TIME
-      - POWER
-      - RESERVATION_TIME
-      - STATE_OF_CHARGE
-      - TIME
+    $ref: ./CdrDimensionType.yaml
   volume:
-    type: number
-    format: float
+    $ref: ./number.yaml

@@ -1,0 +1,7 @@
+summary: ChargingProfileResult schema
+type: object
+required:
+- result
+properties:
+  result:
+    $ref: ./ChargingProfileResultType.yaml

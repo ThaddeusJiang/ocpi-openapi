@@ -1,14 +1,13 @@
-description: Endpoint
+summary: Endpoint schema
 type: object
 required:
-  - identifier
-  - role
-  - url
+- identifier
+- role
+- url
 properties:
   identifier:
-    $ref: ModuleID.yaml
+    $ref: ./ModuleID.yaml
   role:
-    $ref: InterfaceRole.yaml
+    $ref: ./InterfaceRole.yaml
   url:
-    type: string
-    example: "https://www.server.com/ocpi/cpo/2.2"
+    $ref: ./URL.yaml

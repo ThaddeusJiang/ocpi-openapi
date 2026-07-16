@@ -1,24 +1,22 @@
-summary: CdrLocation class
-description: The CdrLocation class contains only the relevant information from the Location object that is needed in a CDR.
+summary: CdrLocation schema
 type: object
 required:
-  - id
-  - address
-  - city
-  - country
-  - coordinates
-  - evse_uid
-  - evse_id
-  - connector_id
-  - connector_standard
-  - connector_format
-  - connector_power_type
-
+- id
+- address
+- city
+- country
+- coordinates
+- evse_uid
+- evse_id
+- connector_id
+- connector_standard
+- connector_format
+- connector_power_type
 properties:
   id:
     type: string
     maxLength: 36
-    minLength: 36
+    description: Case insensitive string.
   name:
     type: string
     maxLength: 255
@@ -42,15 +40,15 @@ properties:
   evse_uid:
     type: string
     maxLength: 36
-    minLength: 36
+    description: Case insensitive string.
   evse_id:
     type: string
     maxLength: 48
-    minLength: 48
+    description: Case insensitive string.
   connector_id:
     type: string
     maxLength: 36
-    minLength: 36
+    description: Case insensitive string.
   connector_standard:
     $ref: ./ConnectorType.yaml
   connector_format:

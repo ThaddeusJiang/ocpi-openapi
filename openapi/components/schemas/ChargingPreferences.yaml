@@ -1,18 +1,13 @@
-required:
-  - profile_type
+summary: ChargingPreferences schema
 type: object
+required:
+- profile_type
 properties:
   profile_type:
-    type: string
-    enum:
-      - CHEAP
-      - FAST
-      - GREEN
-      - REGULAR
+    $ref: ./ProfileType.yaml
   departure_time:
-    type: string
+    $ref: ./DateTime.yaml
   energy_need:
-    type: number
-    format: float
+    $ref: ./number.yaml
   discharge_allowed:
     type: boolean

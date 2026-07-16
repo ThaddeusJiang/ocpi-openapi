@@ -1,0 +1,78 @@
+summary: Partial Location update schema
+type: object
+properties:
+  country_code:
+    $ref: ./CountryCode.yaml
+  party_id:
+    $ref: ./PartyID.yaml
+  id:
+    type: string
+    maxLength: 36
+    description: Case insensitive string.
+  publish:
+    type: boolean
+  publish_allowed_to:
+    type: array
+    items:
+      $ref: ./PublishTokenType.yaml
+  name:
+    type: string
+    maxLength: 255
+  address:
+    type: string
+    maxLength: 45
+  city:
+    type: string
+    maxLength: 45
+  postal_code:
+    type: string
+    maxLength: 10
+  state:
+    type: string
+    maxLength: 20
+  country:
+    type: string
+    maxLength: 3
+  coordinates:
+    $ref: ./GeoLocation.yaml
+  related_locations:
+    type: array
+    items:
+      $ref: ./AdditionalGeoLocation.yaml
+  parking_type:
+    $ref: ./ParkingType.yaml
+  evses:
+    type: array
+    items:
+      $ref: ./EVSE.yaml
+  directions:
+    type: array
+    items:
+      $ref: ./DisplayText.yaml
+  operator:
+    $ref: ./BusinessDetails.yaml
+  suboperator:
+    $ref: ./BusinessDetails.yaml
+  owner:
+    $ref: ./BusinessDetails.yaml
+  facilities:
+    type: array
+    items:
+      $ref: ./Facility.yaml
+  time_zone:
+    type: string
+    maxLength: 255
+  opening_times:
+    $ref: ./Hours.yaml
+  charging_when_closed:
+    type: boolean
+  images:
+    type: array
+    items:
+      $ref: ./Image.yaml
+  energy_mix:
+    $ref: ./EnergyMix.yaml
+  last_updated:
+    $ref: ./DateTime.yaml
+required:
+- last_updated

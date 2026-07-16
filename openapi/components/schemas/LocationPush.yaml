@@ -1,0 +1,5 @@
+summary: Location receiver push object
+oneOf:
+- $ref: ./Location.yaml
+- $ref: ./EVSE.yaml
+- $ref: ./Connector.yaml

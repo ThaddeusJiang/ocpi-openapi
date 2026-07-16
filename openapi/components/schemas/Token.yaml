@@ -1,63 +1,50 @@
-summary: Token Object
-required:
-  - country_code
-  - party_id
-  - uid
-  - type
-  - contract_id
-  - issuer
-  - valid
-  - whitelist
-  - last_updated
-
+summary: Token schema
 type: object
+required:
+- country_code
+- party_id
+- uid
+- type
+- contract_id
+- issuer
+- valid
+- whitelist
+- last_updated
 properties:
   country_code:
-    $ref: ../schemas/CountryCode.yaml
+    $ref: ./CountryCode.yaml
   party_id:
-    type: string
+    $ref: ./PartyID.yaml
   uid:
     type: string
+    maxLength: 36
+    description: Case insensitive string.
   type:
-    description: TokenType enum
-    type: string
-    enum:
-      - AD_HOC_USER
-      - APP_USER
-      - OTHER
-      - RFID
+    $ref: ./TokenType.yaml
   contract_id:
     type: string
+    maxLength: 36
+    description: Case insensitive string.
   visual_number:
     type: string
+    maxLength: 64
   issuer:
     type: string
+    maxLength: 64
   group_id:
     type: string
+    maxLength: 36
+    description: Case insensitive string.
   valid:
     type: boolean
   whitelist:
-    type: string
-    summary: WhitelistType enum
-    description: Defines when authorization of a Token by the CPO is allowed.
-    enum:
-      - ALWAYS
-      - ALLOWED
-      - ALLOWED_OFFLINE
-      - NEVER
-
+    $ref: ./WhitelistType.yaml
   language:
     type: string
+    maxLength: 2
   default_profile_type:
-    type: string
-    summary: ProfileType enum
-    description: Different smart charging profile types.
-    enum:
-      - CHEAP
-      - FAST
-      - GREEN
-      - REGULAR
+    $ref: ./ProfileType.yaml
   energy_contract:
-    $ref: ../schemas/EnergyContract.yaml
+    $ref: ./EnergyContract.yaml
   last_updated:
     $ref: ./DateTime.yaml

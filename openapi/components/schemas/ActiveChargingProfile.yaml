@@ -1,0 +1,10 @@
+summary: ActiveChargingProfile schema
+type: object
+required:
+- start_date_time
+- charging_profile
+properties:
+  start_date_time:
+    $ref: ./DateTime.yaml
+  charging_profile:
+    $ref: ./ChargingProfile.yaml

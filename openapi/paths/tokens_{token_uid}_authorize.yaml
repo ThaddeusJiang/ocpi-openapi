@@ -1,0 +1,21 @@
+post:
+  tags:
+  - Tokens
+  summary: Authorize a Token in real time
+  operationId: authorizeToken
+  security:
+  - tokenAuth: []
+  parameters:
+  - $ref: ../components/parameters/tokenUid.yaml
+  - $ref: ../components/parameters/type.yaml
+  requestBody:
+    $ref: ../components/requestBodies/LocationReferences.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/AuthorizationInfoResponse.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml

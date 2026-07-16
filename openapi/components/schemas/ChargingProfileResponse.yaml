@@ -1,10 +1,11 @@
+summary: ChargingProfileResponse schema
 type: object
 required:
-  - result
-  - timeout
+- result
+- timeout
 properties:
   result:
     $ref: ./ChargingProfileResponseType.yaml
-    example: ACCEPTED
   timeout:
     type: integer
+    minimum: 0

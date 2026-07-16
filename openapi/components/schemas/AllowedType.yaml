@@ -1,0 +1,8 @@
+summary: AllowedType enum
+type: string
+enum:
+- ALLOWED
+- BLOCKED
+- EXPIRED
+- NO_CREDIT
+- NOT_ALLOWED

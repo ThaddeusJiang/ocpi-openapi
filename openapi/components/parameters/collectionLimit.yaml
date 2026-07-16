@@ -2,4 +2,4 @@ name: limit
 in: query
 schema:
   type: integer
-  example: 10
+  minimum: 1

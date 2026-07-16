@@ -1,0 +1,12 @@
+summary: CancelReservation schema
+type: object
+required:
+- response_url
+- reservation_id
+properties:
+  response_url:
+    $ref: ./URL.yaml
+  reservation_id:
+    type: string
+    maxLength: 36
+    description: Case insensitive string.

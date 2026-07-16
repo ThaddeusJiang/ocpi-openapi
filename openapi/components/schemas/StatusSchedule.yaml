@@ -1,8 +1,8 @@
-summary: StatusSchedule class
+summary: StatusSchedule schema
 type: object
 required:
-  - period_begin
-  - status
+- period_begin
+- status
 properties:
   period_begin:
     $ref: ./DateTime.yaml

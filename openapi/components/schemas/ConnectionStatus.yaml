@@ -1,7 +1,7 @@
 summary: ConnectionStatus enum
 type: string
 enum:
-  - CONNECTED
-  - OFFLINE
-  - PLANNED
-  - SUSPENDED
+- CONNECTED
+- OFFLINE
+- PLANNED
+- SUSPENDED

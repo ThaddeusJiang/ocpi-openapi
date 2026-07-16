@@ -1,4 +1,4 @@
-description: Problem
+description: Problem details response
 content:
   application/json:
     schema:

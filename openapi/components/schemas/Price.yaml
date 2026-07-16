@@ -1,10 +1,9 @@
-required:
-  - excl_vat
+summary: Price schema
 type: object
+required:
+- excl_vat
 properties:
   excl_vat:
-    type: number
-    format: float
+    $ref: ./number.yaml
   incl_vat:
-    type: number
-    format: float
+    $ref: ./number.yaml

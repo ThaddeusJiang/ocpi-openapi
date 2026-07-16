@@ -1,51 +1,64 @@
 get:
   tags:
-    - Sessions
-  summary: Receiver /sessions/{country_code}/{party_id}/{session_id}
-  description: |
-    Retrieve a Session object from the eMSP’s system with Session.id equal to {session_id}.
+  - Sessions
+  summary: Retrieve a Session
   operationId: getSessionById
   security:
-    - tokenAuth: []
+  - tokenAuth: []
   parameters:
-    - $ref: ../components/parameters/countryCode.yaml
-    - $ref: ../components/parameters/partyId.yaml
-    - $ref: ../components/parameters/sessionId.yaml
+  - $ref: ../components/parameters/countryCode.yaml
+  - $ref: ../components/parameters/partyId.yaml
+  - $ref: ../components/parameters/sessionId.yaml
   responses:
-    "200":
+    '200':
       $ref: ../components/responses/SessionResponse.yaml
-    "401":
+    '401':
       $ref: ../components/responses/Unauthorized.yaml
-
+    '404':
+      $ref: ../components/responses/NotFound.yaml
 put:
   tags:
-    - Sessions
-  summary: Receiver /sessions/{country_code}/{party_id}/{session_id}
-  description: |
-    Inform the eMSP’s system about a new/updated Session object in the CPO’s system.
+  - Sessions
+  summary: Push a new or updated Session
   operationId: putSessionById
   security:
-    - tokenAuth: []
+  - tokenAuth: []
   parameters:
-    - $ref: ../components/parameters/countryCode.yaml
-    - $ref: ../components/parameters/partyId.yaml
-    - $ref: ../components/parameters/sessionId.yaml
+  - $ref: ../components/parameters/countryCode.yaml
+  - $ref: ../components/parameters/partyId.yaml
+  - $ref: ../components/parameters/sessionId.yaml
   requestBody:
     $ref: ../components/requestBodies/Session.yaml
-
+  responses:
+    '200':
+      $ref: ../components/responses/SessionResponse.yaml
+    '201':
+      $ref: ../components/responses/SessionResponse.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
 patch:
   tags:
-    - Sessions
-  summary: Receiver /sessions/{country_code}/{party_id}/{session_id}
-  description: |
-    Same as the PUT method, but only the fields/objects that need to be updated have to be present. Fields/objects which are not specified are considered unchange
+  - Sessions
+  summary: Partially update a Session
   operationId: patchSessionById
   security:
-    - tokenAuth: []
+  - tokenAuth: []
   parameters:
-    - $ref: ../components/parameters/countryCode.yaml
-    - $ref: ../components/parameters/partyId.yaml
-    - $ref: ../components/parameters/sessionId.yaml
+  - $ref: ../components/parameters/countryCode.yaml
+  - $ref: ../components/parameters/partyId.yaml
+  - $ref: ../components/parameters/sessionId.yaml
   requestBody:
-    required: false
     $ref: ../components/requestBodies/SessionPatch.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/SessionResponse.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml

@@ -1,0 +1,22 @@
+summary: UnlockConnector schema
+type: object
+required:
+- response_url
+- location_id
+- evse_uid
+- connector_id
+properties:
+  response_url:
+    $ref: ./URL.yaml
+  location_id:
+    type: string
+    maxLength: 36
+    description: Case insensitive string.
+  evse_uid:
+    type: string
+    maxLength: 36
+    description: Case insensitive string.
+  connector_id:
+    type: string
+    maxLength: 36
+    description: Case insensitive string.

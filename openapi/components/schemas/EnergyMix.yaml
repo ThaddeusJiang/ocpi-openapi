@@ -1,7 +1,7 @@
-description: EnergyMix class
+summary: EnergyMix schema
 type: object
 required:
-  - is_green_energy
+- is_green_energy
 properties:
   is_green_energy:
     type: boolean

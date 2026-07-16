@@ -1,0 +1,7 @@
+summary: ProfileType enum
+type: string
+enum:
+- CHEAP
+- FAST
+- GREEN
+- REGULAR

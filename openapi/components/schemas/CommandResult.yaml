@@ -1,9 +1,11 @@
-required:
-  - result
-  - message
+summary: CommandResult schema
 type: object
+required:
+- result
 properties:
   result:
-    $ref: CommandResultType.yaml
+    $ref: ./CommandResultType.yaml
   message:
-    $ref: ../schemas/DisplayText.yaml
+    type: array
+    items:
+      $ref: ./DisplayText.yaml

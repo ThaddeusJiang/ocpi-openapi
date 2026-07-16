@@ -2,4 +2,5 @@ name: offset
 in: query
 schema:
   type: integer
-  example: 0
+  minimum: 0
+  default: 0

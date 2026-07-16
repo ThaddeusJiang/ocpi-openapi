@@ -1,31 +1,35 @@
-summary: TariffRestrictions class
+summary: TariffRestrictions schema
 type: object
 properties:
-  star_time:
-    $ref: time.yaml
+  start_time:
+    $ref: ./time.yaml
   end_time:
-    $ref: time.yaml
+    $ref: ./time.yaml
   start_date:
-    $ref: day.yaml
+    $ref: ./day.yaml
   end_date:
-    $ref: day.yaml
+    $ref: ./day.yaml
   min_kwh:
-    $ref: number.yaml
+    $ref: ./number.yaml
   max_kwh:
-    $ref: number.yaml
+    $ref: ./number.yaml
   min_current:
-    $ref: number.yaml
+    $ref: ./number.yaml
   max_current:
-    $ref: number.yaml
+    $ref: ./number.yaml
   min_power:
-    $ref: number.yaml
+    $ref: ./number.yaml
   max_power:
-    $ref: number.yaml
+    $ref: ./number.yaml
   min_duration:
     type: integer
+    minimum: 0
   max_duration:
     type: integer
+    minimum: 0
   day_of_week:
-    $ref: DayOfWeek.yaml
+    type: array
+    items:
+      $ref: ./DayOfWeek.yaml
   reservation:
-    $ref: ReservationRestrictionType.yaml
+    $ref: ./ReservationRestrictionType.yaml

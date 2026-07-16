@@ -1,5 +1,4 @@
-description: List of ClientInfo objects
-
+description: ClientInfo list response
 headers:
   Link:
     $ref: ../headers/Link.yaml
@@ -11,9 +10,10 @@ content:
   application/json:
     schema:
       allOf:
-        - $ref: ./BaseResponse.yaml
-        - properties:
-            data:
-              type: array
-              items:
-                $ref: ../schemas/ClientInfo.yaml
+      - $ref: ./BaseResponse.yaml
+      - type: object
+        required:
+        - data
+        properties:
+          data:
+            $ref: ../schemas/ClientInfos.yaml

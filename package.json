@@ -1,8 +1,8 @@
 {
   "name": "ocpi",
-  "version": "1.0.0",
+  "version": "2.2.1-d2",
   "dependencies": {
-    "@redocly/cli": "^1.5.0"
+    "@redocly/cli": "1.5.0"
   },
   "private": true,
   "scripts": {
@@ -10,10 +10,11 @@
     "build": "npm run clean && npm run build:yaml && npm run build:dts",
     "build:yaml": "openapi bundle -o dist/yaml/openapi.yaml",
     "build:dts": "openapi-typescript dist/yaml/openapi.yaml -o dist/dts/schema.d.ts",
+    "build:docs": "mkdir -p dist/pages && redocly build-docs openapi/openapi.yaml -o dist/pages/index.html && cp docs/favicon.png dist/pages/favicon.png && touch dist/pages/.nojekyll",
     "clean": "rm -rf dist || true",
     "test": "redocly lint"
   },
   "devDependencies": {
-    "openapi-typescript": "^6.4.0"
+    "openapi-typescript": "6.4.0"
   }
 }

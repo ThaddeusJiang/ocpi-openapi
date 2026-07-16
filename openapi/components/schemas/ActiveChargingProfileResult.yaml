@@ -1,0 +1,9 @@
+summary: ActiveChargingProfileResult schema
+type: object
+required:
+- result
+properties:
+  result:
+    $ref: ./ChargingProfileResultType.yaml
+  profile:
+    $ref: ./ActiveChargingProfile.yaml

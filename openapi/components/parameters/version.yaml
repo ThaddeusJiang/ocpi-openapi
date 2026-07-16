@@ -1,0 +1,5 @@
+name: version
+in: path
+required: true
+schema:
+  $ref: ../schemas/VersionNumber.yaml

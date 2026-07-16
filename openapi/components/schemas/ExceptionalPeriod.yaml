@@ -1,8 +1,8 @@
-description: ExceptionalPeriod class
+summary: ExceptionalPeriod schema
 type: object
 required:
-  - period_begin
-  - period_end
+- period_begin
+- period_end
 properties:
   period_begin:
     $ref: ./DateTime.yaml

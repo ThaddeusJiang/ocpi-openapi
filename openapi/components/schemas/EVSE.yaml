@@ -1,17 +1,18 @@
-# object EVSE
+summary: EVSE schema
 type: object
 required:
-  - uid
-  - status
-  - connectors
-  - last_updated
+- uid
+- status
+- last_updated
 properties:
   uid:
     type: string
     maxLength: 36
+    description: Case insensitive string.
   evse_id:
     type: string
     maxLength: 48
+    description: Case insensitive string.
   status:
     $ref: ./Status.yaml
   status_schedule:
@@ -22,11 +23,8 @@ properties:
     type: array
     items:
       $ref: ./Capability.yaml
-
   connectors:
-    type: array
-    items:
-      $ref: ./Connector.yaml
+    $ref: ./Connector.yaml
   floor_level:
     type: string
     maxLength: 4
@@ -48,5 +46,4 @@ properties:
     items:
       $ref: ./Image.yaml
   last_updated:
-    type: string
-    format: date-time
+    $ref: ./DateTime.yaml

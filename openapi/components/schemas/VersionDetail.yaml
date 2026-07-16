@@ -1,11 +1,13 @@
-required:
-  - version
-  - endpoints
+summary: Version detail response data
 type: object
+required:
+- version
+- endpoints
 properties:
   version:
     $ref: ./VersionNumber.yaml
   endpoints:
     type: array
+    minItems: 1
     items:
-      $ref: Endpoint.yaml
+      $ref: ./Endpoint.yaml

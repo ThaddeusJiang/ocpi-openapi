@@ -1,0 +1,18 @@
+summary: AuthorizationInfo schema
+type: object
+required:
+- allowed
+- token
+properties:
+  allowed:
+    $ref: ./AllowedType.yaml
+  token:
+    $ref: ./Token.yaml
+  location:
+    $ref: ./LocationReferences.yaml
+  authorization_reference:
+    type: string
+    maxLength: 36
+    description: Case insensitive string.
+  info:
+    $ref: ./DisplayText.yaml

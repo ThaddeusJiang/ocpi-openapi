@@ -1,28 +1,53 @@
+get:
+  tags:
+  - ChargingProfiles
+  summary: Request the ActiveChargingProfile for a Session
+  operationId: getActiveChargingProfile
+  security:
+  - tokenAuth: []
+  parameters:
+  - $ref: ../components/parameters/sessionId.yaml
+  - $ref: ../components/parameters/duration.yaml
+  - $ref: ../components/parameters/responseUrl.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/ChargingProfileResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
 put:
   tags:
-    - ChargingProfiles
-  summary: "{chargingprofiles_endpoint_url}{session_id}"
-  description: |
-    Creates a new ChargingProfile on a session, or replaces an existing ChargingProfile on the EVSE.
-  operationId: updateChargingProfile
+  - ChargingProfiles
+  summary: Set or update a ChargingProfile for a Session
+  operationId: putChargingProfile
   security:
-    - tokenAuth: []
+  - tokenAuth: []
   parameters:
-    - $ref: ../components/parameters/sessionId.yaml
+  - $ref: ../components/parameters/sessionId.yaml
   requestBody:
-    description: SetChargingProfile
-    required: true
-    content:
-      application/json:
-        schema:
-          $ref: ../components/schemas/SetChargingProfile.yaml
+    $ref: ../components/requestBodies/SetChargingProfile.yaml
   responses:
-    "200":
-      description: OK
-      $ref: ../components/responses/SetChargingProfileResponse.yaml
-    "401":
-      description: Unauthorized
+    '200':
+      $ref: ../components/responses/ChargingProfileResponse.yaml
+    '401':
       $ref: ../components/responses/Unauthorized.yaml
-    "404":
-      description: Not Found
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+delete:
+  tags:
+  - ChargingProfiles
+  summary: Clear a ChargingProfile for a Session
+  operationId: deleteChargingProfile
+  security:
+  - tokenAuth: []
+  parameters:
+  - $ref: ../components/parameters/sessionId.yaml
+  - $ref: ../components/parameters/responseUrl.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/ChargingProfileResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
       $ref: ../components/responses/NotFound.yaml

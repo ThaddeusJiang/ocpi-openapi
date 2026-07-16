@@ -1,0 +1,69 @@
+get:
+  tags:
+  - Locations
+  summary: Retrieve pushed Location, EVSE or Connector
+  operationId: getPushedLocationObjectEVSE
+  security:
+  - tokenAuth: []
+  parameters:
+  - $ref: ../components/parameters/countryCode.yaml
+  - $ref: ../components/parameters/partyId.yaml
+  - $ref: ../components/parameters/locationId.yaml
+  - $ref: ../components/parameters/evseUid.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/LocationObjectResponse.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+put:
+  tags:
+  - Locations
+  summary: Push new or updated Location, EVSE or Connector
+  operationId: putLocationObjectEVSE
+  security:
+  - tokenAuth: []
+  parameters:
+  - $ref: ../components/parameters/countryCode.yaml
+  - $ref: ../components/parameters/partyId.yaml
+  - $ref: ../components/parameters/locationId.yaml
+  - $ref: ../components/parameters/evseUid.yaml
+  requestBody:
+    $ref: ../components/requestBodies/Location.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/LocationObjectResponse.yaml
+    '201':
+      $ref: ../components/responses/LocationObjectResponse.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+patch:
+  tags:
+  - Locations
+  summary: Partially update a Location, EVSE or Connector
+  operationId: patchLocationObjectEVSE
+  security:
+  - tokenAuth: []
+  parameters:
+  - $ref: ../components/parameters/countryCode.yaml
+  - $ref: ../components/parameters/partyId.yaml
+  - $ref: ../components/parameters/locationId.yaml
+  - $ref: ../components/parameters/evseUid.yaml
+  requestBody:
+    $ref: ../components/requestBodies/LocationPatch.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/LocationObjectResponse.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml

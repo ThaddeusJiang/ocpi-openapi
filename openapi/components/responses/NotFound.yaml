@@ -2,8 +2,4 @@ description: Not Found
 content:
   application/json:
     schema:
-      $ref: BaseResponse.yaml
-    example:
-      status_code: 404
-      status_message: Not Found
-      timestamp: 2021-01-01T00:00:00Z
+      $ref: ./BaseResponse.yaml

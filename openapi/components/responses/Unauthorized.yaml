@@ -2,8 +2,4 @@ description: Unauthorized
 content:
   application/json:
     schema:
-      $ref: BaseResponse.yaml
-    example:
-      status_code: 401
-      status_message: Unauthorized
-      timestamp: 2021-01-01T00:00:00Z
+      $ref: ./BaseResponse.yaml

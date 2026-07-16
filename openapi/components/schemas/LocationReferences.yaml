@@ -1,0 +1,15 @@
+summary: LocationReferences schema
+type: object
+required:
+- location_id
+properties:
+  location_id:
+    type: string
+    maxLength: 36
+    description: Case insensitive string.
+  evse_uids:
+    type: array
+    items:
+      type: string
+      maxLength: 36
+      description: Case insensitive string.

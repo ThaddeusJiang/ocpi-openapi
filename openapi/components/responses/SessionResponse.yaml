@@ -1,9 +1,12 @@
-description: Success
+description: Session response
 content:
   application/json:
     schema:
       allOf:
-        - $ref: ./BaseResponse.yaml
-        - properties:
-            data:
-              $ref: ../schemas/Session.yaml
+      - $ref: ./BaseResponse.yaml
+      - type: object
+        required:
+        - data
+        properties:
+          data:
+            $ref: ../schemas/Session.yaml

@@ -1,0 +1,4 @@
+summary: List of Tariff objects
+type: array
+items:
+  $ref: ./Tariff.yaml

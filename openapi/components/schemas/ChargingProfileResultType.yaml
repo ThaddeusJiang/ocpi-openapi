@@ -1,0 +1,6 @@
+summary: ChargingProfileResultType enum
+type: string
+enum:
+- ACCEPTED
+- REJECTED
+- UNKNOWN

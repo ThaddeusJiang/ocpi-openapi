@@ -1,14 +1,14 @@
-description: SignedValue class
+summary: SignedValue schema
 type: object
 required:
-  - nature
-  - plain_data
-  - signed_data
-
+- nature
+- plain_data
+- signed_data
 properties:
   nature:
     type: string
     maxLength: 32
+    description: Case insensitive string.
   plain_data:
     type: string
     maxLength: 512

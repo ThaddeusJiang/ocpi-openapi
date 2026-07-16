@@ -1,11 +1,7 @@
-summary: TariffElement class
+summary: TariffElement schema
 type: object
-required:
-  - price_components
 properties:
   price_components:
-    type: array
-    items:
-      $ref: PriceComponent.yaml
+    $ref: ./PriceComponent.yaml
   restrictions:
-    $ref: TariffRestrictions.yaml
+    $ref: ./TariffRestrictions.yaml

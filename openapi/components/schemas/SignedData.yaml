@@ -1,19 +1,18 @@
-description: SignedData class
+summary: SignedData schema
 type: object
 required:
-  - encoding_method
-  - signed_values
+- encoding_method
 properties:
   encoding_method:
     type: string
     maxLength: 36
+    description: Case insensitive string.
   encoding_method_version:
     type: integer
   public_key:
     type: string
     maxLength: 512
   signed_values:
-    type: array
     $ref: ./SignedValue.yaml
   url:
     type: string

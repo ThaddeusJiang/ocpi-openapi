@@ -1,0 +1,7 @@
+summary: ClearProfileResult schema
+type: object
+required:
+- result
+properties:
+  result:
+    $ref: ./ChargingProfileResultType.yaml

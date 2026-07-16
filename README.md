@@ -15,8 +15,17 @@ Starts the reference docs preview server.
 #### `npm run build`
 Bundles the definition to the dist folder.
 
+#### `npm run build:docs`
+Builds the static OpenAPI documentation for GitHub Pages into `dist/pages`.
+
 #### `npm test`
 Validates the definition.
+
+## GitHub Pages
+
+The OpenAPI reference is deployed from `.github/workflows/pages.yaml`.
+The workflow lints `openapi/openapi.yaml`, builds the static Redoc page, and
+publishes it to GitHub Pages from the `main` branch.
 
 ## Contribution Guide
 

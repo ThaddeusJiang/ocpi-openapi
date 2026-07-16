@@ -1,0 +1,17 @@
+post:
+  tags:
+  - ChargingProfiles
+  summary: Receive an asynchronous ChargingProfiles result
+  operationId: receiveChargingProfileResult
+  security:
+  - tokenAuth: []
+  description: OCPI leaves the Sender callback URL implementation-defined; this path documents the expected callback body.
+  parameters:
+  - $ref: ../components/parameters/sessionId.yaml
+  requestBody:
+    $ref: ../components/requestBodies/ChargingProfileAsyncResult.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/Accepted.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml

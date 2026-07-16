@@ -1,42 +1,33 @@
 get:
   tags:
-    - CDRs
-  summary: Sender /cdrs
+  - CDRs
+  summary: Fetch CDRs
   operationId: getCdrs
   security:
-    - tokenAuth: []
+  - tokenAuth: []
   parameters:
-    - $ref: ../components/parameters/collectionDateFrom.yaml
-    - $ref: ../components/parameters/collectionDateTo.yaml
-    - $ref: ../components/parameters/collectionOffset.yaml
-    - $ref: ../components/parameters/collectionLimit.yaml
+  - $ref: ../components/parameters/collectionDateFrom.yaml
+  - $ref: ../components/parameters/collectionDateTo.yaml
+  - $ref: ../components/parameters/collectionOffset.yaml
+  - $ref: ../components/parameters/collectionLimit.yaml
   responses:
-    200:
+    '200':
       $ref: ../components/responses/CdrsResponse.yaml
-    401:
+    '401':
       $ref: ../components/responses/Unauthorized.yaml
-
 post:
   tags:
-    - CDRs
-  summary: Receiver /cdrs
+  - CDRs
+  summary: Create a CDR
   operationId: createCdr
   security:
-    - tokenAuth: []
+  - tokenAuth: []
   requestBody:
-    content:
-      application/json:
-        schema:
-          $ref: ../components/schemas/CDR.yaml
+    $ref: ../components/requestBodies/Cdr.yaml
   responses:
-    201:
-      description: Created
-      headers:
-        Location:
-          schema:
-            $ref: ../components/schemas/URL.yaml
-          example: https://www.server.com/ocpi/emsp/2.2/cdrs/123456
-    400:
+    '201':
+      $ref: ../components/responses/CdrResponse.yaml
+    '400':
       $ref: ../components/responses/BadRequest.yaml
-    401:
+    '401':
       $ref: ../components/responses/Unauthorized.yaml

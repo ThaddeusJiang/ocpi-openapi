@@ -1,20 +1,17 @@
 get:
   tags:
-    - Sessions
-  summary: Sender /sessions
-  description: |
-    Fetch Sessions from a CPO system.
+  - Sessions
+  summary: Fetch Sessions
   operationId: getSessions
   security:
-    - tokenAuth: []
+  - tokenAuth: []
   parameters:
-    - $ref: ../components/parameters/collectionDateFrom.yaml
-    - $ref: ../components/parameters/collectionDateTo.yaml
-    - $ref: ../components/parameters/collectionOffset.yaml
-    - $ref: ../components/parameters/collectionLimit.yaml
+  - $ref: ../components/parameters/collectionDateFrom.yaml
+  - $ref: ../components/parameters/collectionDateTo.yaml
+  - $ref: ../components/parameters/collectionOffset.yaml
+  - $ref: ../components/parameters/collectionLimit.yaml
   responses:
-    "200":
+    '200':
       $ref: ../components/responses/SessionsResponse.yaml
-    "401":
-      description: Unauthorized
+    '401':
       $ref: ../components/responses/Unauthorized.yaml

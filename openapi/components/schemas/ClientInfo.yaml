@@ -1,10 +1,11 @@
+summary: ClientInfo schema
 type: object
 required:
-  - party_id
-  - country_code
-  - role
-  - status
-  - last_updated
+- party_id
+- country_code
+- role
+- status
+- last_updated
 properties:
   party_id:
     $ref: ./PartyID.yaml

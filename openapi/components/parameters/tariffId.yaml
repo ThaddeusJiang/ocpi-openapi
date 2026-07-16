@@ -1,0 +1,6 @@
+name: tariff_id
+in: path
+required: true
+schema:
+  type: string
+  maxLength: 36

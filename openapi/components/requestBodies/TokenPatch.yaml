@@ -1,4 +1,4 @@
-description: Token patch payload
+required: true
 content:
   application/json:
     schema:

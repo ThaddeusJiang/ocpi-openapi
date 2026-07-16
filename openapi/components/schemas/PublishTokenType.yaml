@@ -1,0 +1,19 @@
+summary: PublishTokenType schema
+type: object
+properties:
+  uid:
+    type: string
+    maxLength: 36
+    description: Case insensitive string.
+  type:
+    $ref: ./TokenType.yaml
+  visual_number:
+    type: string
+    maxLength: 64
+  issuer:
+    type: string
+    maxLength: 64
+  group_id:
+    type: string
+    maxLength: 36
+    description: Case insensitive string.

@@ -1,18 +1,18 @@
 get:
   tags:
-    - Locations
-  summary: Sender /locations/{location_id}
-  operationId: getLocation_by_location_id
+  - Locations
+  summary: Fetch a Location
+  operationId: getLocation
   security:
-    - tokenAuth: []
+  - tokenAuth: []
   parameters:
-    - $ref: ../components/parameters/locationId.yaml
+  - $ref: ../components/parameters/locationId.yaml
   responses:
-    "200":
+    '200':
       $ref: ../components/responses/Location.yaml
-    "400":
+    '400':
       $ref: ../components/responses/BadRequest.yaml
-    "401":
+    '401':
       $ref: ../components/responses/Unauthorized.yaml
-    "404":
+    '404':
       $ref: ../components/responses/NotFound.yaml

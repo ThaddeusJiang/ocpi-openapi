@@ -1,0 +1,4 @@
+summary: List of Token objects
+type: array
+items:
+  $ref: ./Token.yaml

@@ -1,3 +1,4 @@
+summary: List of Session objects
 type: array
 items:
   $ref: ./Session.yaml

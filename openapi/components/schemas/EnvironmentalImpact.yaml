@@ -1,13 +1,10 @@
-description: EnvironmentalImpact class
+summary: EnvironmentalImpact schema
 type: object
 required:
-  - category
-  - amount
+- category
+- amount
 properties:
   category:
     $ref: ./EnvironmentalImpactCategory.yaml
   amount:
-    type: number
-    minimum: 0
-    maximum: 100
-    multipleOf: 0.01
+    $ref: ./number.yaml

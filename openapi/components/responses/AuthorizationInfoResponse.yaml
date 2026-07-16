@@ -1,0 +1,12 @@
+description: AuthorizationInfo response
+content:
+  application/json:
+    schema:
+      allOf:
+      - $ref: ./BaseResponse.yaml
+      - type: object
+        required:
+        - data
+        properties:
+          data:
+            $ref: ../schemas/AuthorizationInfo.yaml

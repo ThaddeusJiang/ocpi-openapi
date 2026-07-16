@@ -1,0 +1,7 @@
+summary: TokenType enum
+type: string
+enum:
+- AD_HOC_USER
+- APP_USER
+- OTHER
+- RFID

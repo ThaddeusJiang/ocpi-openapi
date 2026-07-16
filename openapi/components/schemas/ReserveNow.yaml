@@ -1,0 +1,31 @@
+summary: ReserveNow schema
+type: object
+required:
+- response_url
+- token
+- expiry_date
+- reservation_id
+- location_id
+properties:
+  response_url:
+    $ref: ./URL.yaml
+  token:
+    $ref: ./Token.yaml
+  expiry_date:
+    $ref: ./DateTime.yaml
+  reservation_id:
+    type: string
+    maxLength: 36
+    description: Case insensitive string.
+  location_id:
+    type: string
+    maxLength: 36
+    description: Case insensitive string.
+  evse_uid:
+    type: string
+    maxLength: 36
+    description: Case insensitive string.
+  authorization_reference:
+    type: string
+    maxLength: 36
+    description: Case insensitive string.

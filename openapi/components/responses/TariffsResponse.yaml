@@ -1,5 +1,4 @@
-description: |
-  List of all tariffs.
+description: Tariffs response
 headers:
   Link:
     $ref: ../headers/Link.yaml
@@ -11,9 +10,10 @@ content:
   application/json:
     schema:
       allOf:
-        - $ref: ./BaseResponse.yaml
-        - properties:
-            data:
-              type: array
-              items:
-                $ref: ../schemas/Tariff.yaml
+      - $ref: ./BaseResponse.yaml
+      - type: object
+        required:
+        - data
+        properties:
+          data:
+            $ref: ../schemas/Tariffs.yaml

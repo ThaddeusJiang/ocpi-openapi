@@ -1,0 +1,8 @@
+summary: SessionStatus enum
+type: string
+enum:
+- ACTIVE
+- COMPLETED
+- INVALID
+- PENDING
+- RESERVATION

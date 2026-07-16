@@ -1,9 +1,11 @@
+summary: ChargingProfilePeriod schema
 type: object
 required:
-  - start_period
-  - limit
+- start_period
+- limit
 properties:
   start_period:
     type: integer
+    minimum: 0
   limit:
     $ref: ./number.yaml

@@ -1,0 +1,5 @@
+summary: Charging profile asynchronous result object
+oneOf:
+- $ref: ./ActiveChargingProfileResult.yaml
+- $ref: ./ChargingProfileResult.yaml
+- $ref: ./ClearProfileResult.yaml

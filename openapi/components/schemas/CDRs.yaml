@@ -1,0 +1,4 @@
+summary: List of CDR objects
+type: array
+items:
+  $ref: ./CDR.yaml

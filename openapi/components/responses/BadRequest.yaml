@@ -3,7 +3,3 @@ content:
   application/json:
     schema:
       $ref: ./BaseResponse.yaml
-    example:
-      status_code: 400
-      status_message: Bad Request
-      timestamp: 2021-01-01T00:00:00Z

@@ -1,0 +1,17 @@
+put:
+  tags:
+  - ChargingProfiles
+  summary: Receive an ActiveChargingProfile update
+  operationId: receiveActiveChargingProfileUpdate
+  security:
+  - tokenAuth: []
+  description: OCPI leaves the Sender callback URL implementation-defined; this path documents the expected update body.
+  parameters:
+  - $ref: ../components/parameters/sessionId.yaml
+  requestBody:
+    $ref: ../components/requestBodies/ActiveChargingProfile.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/Accepted.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml

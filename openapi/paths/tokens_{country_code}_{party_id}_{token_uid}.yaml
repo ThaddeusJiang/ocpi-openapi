@@ -1,80 +1,67 @@
 get:
   tags:
-    - Tokens
-  summary: Receiver /tokens/{country_code}/{party_id}/{token_uid}
-  description: |
-    Retrieve a Token as it is stored in the CPO system.
+  - Tokens
+  summary: Retrieve a Token
   operationId: getTokenById
   security:
-    - tokenAuth: []
+  - tokenAuth: []
   parameters:
-    - $ref: ../components/parameters/countryCode.yaml
-    - $ref: ../components/parameters/partyId.yaml
-    - $ref: ../components/parameters/tokenUid.yaml
-    - name: type
-      in: query
-      schema:
-        type: string # TokenType
+  - $ref: ../components/parameters/countryCode.yaml
+  - $ref: ../components/parameters/partyId.yaml
+  - $ref: ../components/parameters/tokenUid.yaml
+  - $ref: ../components/parameters/type.yaml
   responses:
-    "200":
-      $ref: ../components/responses/OneTokenResponse.yaml
-    "401":
+    '200':
+      $ref: ../components/responses/TokenResponse.yaml
+    '401':
       $ref: ../components/responses/Unauthorized.yaml
-    "404":
+    '404':
       $ref: ../components/responses/NotFound.yaml
-
 put:
   tags:
-    - Tokens
-  summary: Receiver /tokens/{country_code}/{party_id}/{token_uid}
-  description: |
-    New or updated Token objects are pushed from the eMSP to the CPO.
+  - Tokens
+  summary: Push a new or updated Token
   operationId: putToken
   security:
-    - tokenAuth: []
+  - tokenAuth: []
   parameters:
-    - $ref: ../components/parameters/countryCode.yaml
-    - $ref: ../components/parameters/partyId.yaml
-    - $ref: ../components/parameters/tokenUid.yaml
-    - $ref: ../components/parameters/type.yaml
+  - $ref: ../components/parameters/countryCode.yaml
+  - $ref: ../components/parameters/partyId.yaml
+  - $ref: ../components/parameters/tokenUid.yaml
+  - $ref: ../components/parameters/type.yaml
   requestBody:
     $ref: ../components/requestBodies/Token.yaml
   responses:
-    "200":
-      description: Token updated
-      $ref: ../components/responses/OneTokenResponse.yaml
-    "201":
-      description: Token created
-      $ref: ../components/responses/OneTokenResponse.yaml
-    "400":
+    '200':
+      $ref: ../components/responses/TokenResponse.yaml
+    '201':
+      $ref: ../components/responses/TokenResponse.yaml
+    '400':
       $ref: ../components/responses/BadRequest.yaml
-    "401":
+    '401':
       $ref: ../components/responses/Unauthorized.yaml
-    "404":
+    '404':
       $ref: ../components/responses/NotFound.yaml
-
 patch:
   tags:
-    - Tokens
-  summary: Receiver /tokens/{country_code}/{party_id}/{token_uid}
-  description: |
-    New or updated Token objects are pushed from the eMSP to the CPO.
+  - Tokens
+  summary: Partially update a Token
   operationId: patchToken
   security:
-    - tokenAuth: []
+  - tokenAuth: []
   parameters:
-    - $ref: ../components/parameters/countryCode.yaml
-    - $ref: ../components/parameters/partyId.yaml
-    - $ref: ../components/parameters/tokenUid.yaml
+  - $ref: ../components/parameters/countryCode.yaml
+  - $ref: ../components/parameters/partyId.yaml
+  - $ref: ../components/parameters/tokenUid.yaml
+  - $ref: ../components/parameters/type.yaml
   requestBody:
     $ref: ../components/requestBodies/TokenPatch.yaml
   responses:
-    "200":
-      description: Token updated
-      $ref: ../components/responses/OneTokenResponse.yaml
-    "400":
+    '200':
+      $ref: ../components/responses/TokenResponse.yaml
+    '400':
       $ref: ../components/responses/BadRequest.yaml
-    "401":
+    '401':
       $ref: ../components/responses/Unauthorized.yaml
-    "404":
+    '404':
       $ref: ../components/responses/NotFound.yaml

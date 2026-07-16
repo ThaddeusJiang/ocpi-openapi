@@ -1,0 +1,64 @@
+get:
+  tags:
+  - Tariffs
+  summary: Retrieve a Tariff
+  operationId: getTariffById
+  security:
+  - tokenAuth: []
+  parameters:
+  - $ref: ../components/parameters/countryCode.yaml
+  - $ref: ../components/parameters/partyId.yaml
+  - $ref: ../components/parameters/tariffId.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/TariffResponse.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+put:
+  tags:
+  - Tariffs
+  summary: Push a new or updated Tariff
+  operationId: putTariff
+  security:
+  - tokenAuth: []
+  parameters:
+  - $ref: ../components/parameters/countryCode.yaml
+  - $ref: ../components/parameters/partyId.yaml
+  - $ref: ../components/parameters/tariffId.yaml
+  requestBody:
+    $ref: ../components/requestBodies/Tariff.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/TariffResponse.yaml
+    '201':
+      $ref: ../components/responses/TariffResponse.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+delete:
+  tags:
+  - Tariffs
+  summary: Delete a Tariff
+  operationId: deleteTariff
+  security:
+  - tokenAuth: []
+  parameters:
+  - $ref: ../components/parameters/countryCode.yaml
+  - $ref: ../components/parameters/partyId.yaml
+  - $ref: ../components/parameters/tariffId.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/Accepted.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml

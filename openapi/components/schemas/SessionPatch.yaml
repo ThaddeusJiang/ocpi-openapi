@@ -1,5 +1,4 @@
-required:
-  - last_updated
+summary: Partial Session update schema
 type: object
 properties:
   country_code:
@@ -8,33 +7,40 @@ properties:
     $ref: ./PartyID.yaml
   id:
     type: string
+    maxLength: 36
+    description: Case insensitive string.
   start_date_time:
-    type: string
+    $ref: ./DateTime.yaml
   end_date_time:
-    type: string
+    $ref: ./DateTime.yaml
   kwh:
-    type: number
-    format: float
+    $ref: ./number.yaml
   cdr_token:
     $ref: ./CdrToken.yaml
   auth_method:
-    type: string
-    enum:
-      - AUTH_REQUEST
-      - COMMAND
-      - WHITELIST
+    $ref: ./AuthMethod.yaml
   authorization_reference:
     type: string
+    maxLength: 36
+    description: Case insensitive string.
   location_id:
     type: string
+    maxLength: 36
+    description: Case insensitive string.
   evse_uid:
     type: string
+    maxLength: 36
+    description: Case insensitive string.
   connector_id:
     type: string
+    maxLength: 36
+    description: Case insensitive string.
   meter_id:
     type: string
+    maxLength: 255
   currency:
     type: string
+    maxLength: 3
   charging_periods:
     type: array
     items:
@@ -42,12 +48,8 @@ properties:
   total_cost:
     $ref: ./Price.yaml
   status:
-    type: string
-    enum:
-      - ACTIVE
-      - COMPLETED
-      - INVALID
-      - PENDING
-      - RESERVATION
+    $ref: ./SessionStatus.yaml
   last_updated:
     $ref: ./DateTime.yaml
+required:
+- last_updated

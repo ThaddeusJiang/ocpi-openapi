@@ -1,9 +1,8 @@
-description: VersionNumber enum
+summary: VersionNumber enum
 type: string
 enum:
-  - "2.0"
-  - "2.1"
-  - "2.1.1"
-  - "2.2"
-  - "2.2.1"
-example: 2.2.1
+- '2.0'
+- '2.1'
+- 2.1.1
+- '2.2'
+- 2.2.1

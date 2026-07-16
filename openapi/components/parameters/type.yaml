@@ -1,4 +1,4 @@
 name: type
 in: query
 schema:
-  type: string
+  $ref: ../schemas/TokenType.yaml

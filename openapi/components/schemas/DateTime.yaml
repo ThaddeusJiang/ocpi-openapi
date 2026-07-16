@@ -1,5 +1,7 @@
 summary: DateTime type
 type: string
 format: date-time
+maxLength: 25
 examples:
-  - 2015-06-29T20:39:09Z
+- '2015-06-29T20:39:09Z'
+- '2018-01-01T01:08:01.123Z'

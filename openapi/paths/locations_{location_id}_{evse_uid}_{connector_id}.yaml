@@ -1,20 +1,20 @@
 get:
   tags:
-    - Locations
-  summary: Sender /locations/{location_id}/{evse_uid}]/[{connector_id}
-  operationId: getLocation_by_location_id_evse_uid_connector_id
+  - Locations
+  summary: Fetch a Connector
+  operationId: getConnector
   security:
-    - tokenAuth: []
+  - tokenAuth: []
   parameters:
-    - $ref: ../components/parameters/locationId.yaml
-    - $ref: ../components/parameters/evseUid.yaml
-    - $ref: ../components/parameters/connectorId.yaml
+  - $ref: ../components/parameters/locationId.yaml
+  - $ref: ../components/parameters/evseUid.yaml
+  - $ref: ../components/parameters/connectorId.yaml
   responses:
-    "200":
-      $ref: ../components/responses/Location.yaml
-    "400":
+    '200':
+      $ref: ../components/responses/ConnectorResponse.yaml
+    '400':
       $ref: ../components/responses/BadRequest.yaml
-    "401":
+    '401':
       $ref: ../components/responses/Unauthorized.yaml
-    "404":
+    '404':
       $ref: ../components/responses/NotFound.yaml

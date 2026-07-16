@@ -1,0 +1,16 @@
+post:
+  tags:
+  - Commands
+  summary: Send a command request
+  operationId: sendCommand
+  security:
+  - tokenAuth: []
+  parameters:
+  - $ref: ../components/parameters/command.yaml
+  requestBody:
+    $ref: ../components/requestBodies/Command.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/CommandResponse.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml

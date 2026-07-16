@@ -1,63 +1,41 @@
 openapi: 3.1.0
 info:
-  version: 0.0.16
+  version: 2.2.1-d2
   title: OCPI
-
   contact:
     email: dev@plugo.co.jp
     url: https://plugo.co.jp/
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  x-logo:
-    url: https://redocly.github.io/openapi-template/logo.png
-  description: OCPI 2.2.1 specification
-
+  description: OpenAPI 3.1 definitions for OCPI 2.2.1-d2.
 servers:
-  - url: https://www.example.com
-    description: Development server
+- url: https://ocpi.server.com/2.2.1
+  description: Example OCPI server
+security:
+- tokenAuth: []
 tags:
-  - name: Sessions
-    description: |
-      Module Identifier: sessions
-
-      Data owner: CPO
-
-      Type: Functional Module
-
-      The Session object describes one charging session. The Session object is owned by the CPO back-end system, and can be GET from the CPO system, or pushed by the CPO to another system.
-  - name: Commands
-    description: |
-      Module Identifier: commands
-
-      Type: Functional Module
-
-      The Commands module enables remote commands to be sent to a Location/EVSE. The following commands are supported:
-      - CANCEL_RESERVATION • RESERVE_NOW
-      - START_SESSION
-      - STOP_SESSION
-      - UNLOCK_CONNECTOR
-
-      See CommandType for a description of the different commands. Use the UNLOCK_CONNECTOR command with care, please read
-      the note at CommandType.
-
-      Module dependency: Locations module, Sessions module
-
+- name: Versions
+  description: OCPI Versions module.
+- name: Credentials
+  description: OCPI Credentials module.
+- name: Locations
+  description: OCPI Locations module.
+- name: Sessions
+  description: OCPI Sessions module.
+- name: CDRs
+  description: OCPI CDRs module.
+- name: Tariffs
+  description: OCPI Tariffs module.
+- name: Tokens
+  description: OCPI Tokens module.
+- name: Commands
+  description: OCPI Commands module.
+- name: ChargingProfiles
+  description: OCPI ChargingProfiles module.
+- name: HubClientInfo
+  description: OCPI HubClientInfo module.
 paths:
-  /sessions:
-    $ref: paths/sessions.yaml
-  /sessions/{session_id}/charging_preferences:
-    $ref: paths/sessions_{session_id}_charging_preferences.yaml
-  /sessions/{country_code}/{party_id}/{session_id}:
-    $ref: paths/sessions_{country_code}_{party_id}_{session_id}.yaml
-  /commands/START_SESSION:
-    $ref: paths/commands_start_session.yaml
-  /commands/STOP_SESSION:
-    $ref: paths/commands_stop_session.yaml
-  /commands/{command}/{uid}:
-    $ref: paths/commands_{command}_{uid}.yaml
-  /tokens/{country_code}/{party_id}/{token_uid}:
-    $ref: paths/tokens_{country_code}_{party_id}_{token_uid}.yaml
   /versions:
     $ref: paths/versions.yaml
   /{version}:
@@ -72,19 +50,46 @@ paths:
     $ref: paths/locations_{location_id}_{evse_uid}.yaml
   /locations/{location_id}/{evse_uid}/{connector_id}:
     $ref: paths/locations_{location_id}_{evse_uid}_{connector_id}.yaml
-  /tariffs:
-    $ref: paths/tariffs.yaml
+  /locations/{country_code}/{party_id}/{location_id}:
+    $ref: paths/locations_{country_code}_{party_id}_{location_id}.yaml
+  /locations/{country_code}/{party_id}/{location_id}/{evse_uid}:
+    $ref: paths/locations_{country_code}_{party_id}_{location_id}_{evse_uid}.yaml
+  /locations/{country_code}/{party_id}/{location_id}/{evse_uid}/{connector_id}:
+    $ref: paths/locations_{country_code}_{party_id}_{location_id}_{evse_uid}_{connector_id}.yaml
+  /sessions:
+    $ref: paths/sessions.yaml
+  /sessions/{country_code}/{party_id}/{session_id}:
+    $ref: paths/sessions_{country_code}_{party_id}_{session_id}.yaml
+  /sessions/{session_id}/charging_preferences:
+    $ref: paths/sessions_{session_id}_charging_preferences.yaml
   /cdrs:
     $ref: paths/cdrs.yaml
   /cdrs/{cdr_id}:
     $ref: paths/cdrs_{cdr_id}.yaml
+  /tariffs:
+    $ref: paths/tariffs.yaml
+  /tariffs/{country_code}/{party_id}/{tariff_id}:
+    $ref: paths/tariffs_{country_code}_{party_id}_{tariff_id}.yaml
+  /tokens:
+    $ref: paths/tokens.yaml
+  /tokens/{country_code}/{party_id}/{token_uid}:
+    $ref: paths/tokens_{country_code}_{party_id}_{token_uid}.yaml
+  /tokens/{token_uid}/authorize:
+    $ref: paths/tokens_{token_uid}_authorize.yaml
+  /commands/{command}:
+    $ref: paths/commands_{command}.yaml
+  /commands/{command}/{uid}:
+    $ref: paths/commands_{command}_{uid}.yaml
   /chargingprofiles/{session_id}:
     $ref: paths/chargingprofiles_{session_id}.yaml
+  /chargingprofiles/{session_id}/result:
+    $ref: paths/chargingprofiles_{session_id}_result.yaml
+  /chargingprofiles/{session_id}/active_charging_profile:
+    $ref: paths/chargingprofiles_{session_id}_active_charging_profile.yaml
   /clientinfo/{country_code}/{party_id}:
     $ref: paths/clientinfo_{country_code}_{party_id}.yaml
   /hubclientinfo:
     $ref: paths/hubclientinfo.yaml
-
 components:
   securitySchemes:
     tokenAuth:

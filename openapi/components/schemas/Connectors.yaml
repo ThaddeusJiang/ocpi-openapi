@@ -1,0 +1,4 @@
+summary: List of Connector objects
+type: array
+items:
+  $ref: ./Connector.yaml

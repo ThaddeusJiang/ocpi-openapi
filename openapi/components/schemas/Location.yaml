@@ -1,15 +1,16 @@
+summary: Location schema
 type: object
 required:
-  - country_code
-  - party_id
-  - id
-  - publish
-  - address
-  - city
-  - country
-  - coordinates
-  - time_zone
-  - last_updated
+- country_code
+- party_id
+- id
+- publish
+- address
+- city
+- country
+- coordinates
+- time_zone
+- last_updated
 properties:
   country_code:
     $ref: ./CountryCode.yaml
@@ -18,14 +19,13 @@ properties:
   id:
     type: string
     maxLength: 36
+    description: Case insensitive string.
   publish:
     type: boolean
   publish_allowed_to:
-    # TODO: PublishTokenType
     type: array
     items:
-      type: string
-      maxLength: 3
+      $ref: ./PublishTokenType.yaml
   name:
     type: string
     maxLength: 255
@@ -51,9 +51,7 @@ properties:
     items:
       $ref: ./AdditionalGeoLocation.yaml
   parking_type:
-    type: array
-    items:
-      $ref: ./ParkingType.yaml
+    $ref: ./ParkingType.yaml
   evses:
     type: array
     items:
@@ -76,9 +74,7 @@ properties:
     type: string
     maxLength: 255
   opening_times:
-    type: array
-    items:
-      $ref: ./Hours.yaml
+    $ref: ./Hours.yaml
   charging_when_closed:
     type: boolean
   images:

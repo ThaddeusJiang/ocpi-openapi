@@ -1,10 +1,10 @@
-required:
-  - version
-  - url
+summary: Version schema
 type: object
+required:
+- version
+- url
 properties:
   version:
-    $ref: VersionNumber.yaml
+    $ref: ./VersionNumber.yaml
   url:
-    type: string
-    example: "https://www.example.com/ocpi/cpo/2.2.1"
+    $ref: ./URL.yaml

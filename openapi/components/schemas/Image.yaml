@@ -1,24 +1,25 @@
-summary: Image class
+summary: Image schema
 type: object
 required:
-  - url
-  - category
-  - type
+- url
+- category
+- type
 properties:
   url:
-    $ref: URL.yaml
+    $ref: ./URL.yaml
   thumbnail:
-    $ref: URL.yaml
+    $ref: ./URL.yaml
   category:
-    $ref: ImageCategory.yaml
+    $ref: ./ImageCategory.yaml
   type:
     type: string
     maxLength: 4
-    description: |
-      Image type like: gif, jpeg, png, svg.
+    description: Case insensitive string.
   width:
-    type: integer
+    type: string
+    maxLength: 5
     maximum: 99999
   height:
-    type: integer
+    type: string
+    maxLength: 5
     maximum: 99999

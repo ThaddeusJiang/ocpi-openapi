@@ -1,15 +1,16 @@
-summary: PriceComponent class
+summary: PriceComponent schema
 type: object
 required:
-  - type
-  - price
-  - step_size
+- type
+- price
+- step_size
 properties:
   type:
-    $ref: TariffDimensionType.yaml
+    $ref: ./TariffDimensionType.yaml
   price:
-    $ref: number.yaml
+    $ref: ./number.yaml
   vat:
-    $ref: number.yaml
+    $ref: ./number.yaml
   step_size:
     type: integer
+    minimum: 1

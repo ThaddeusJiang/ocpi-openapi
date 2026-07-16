@@ -1,21 +1,19 @@
-summary: CDR
-description: The CDR object describes the charging session and its costs, how these costs are composed, etc.
+summary: CDR schema
 type: object
 required:
-  - country_code
-  - party_id
-  - id
-  - start_date_time
-  - end_date_time
-  - cdr_token
-  - auth_method
-  - cdr_location
-  - currency
-  - total_cost
-  - total_energy
-  - total_time
-  - last_updated
-
+- country_code
+- party_id
+- id
+- start_date_time
+- end_date_time
+- cdr_token
+- auth_method
+- cdr_location
+- currency
+- total_cost
+- total_energy
+- total_time
+- last_updated
 properties:
   country_code:
     $ref: ./CountryCode.yaml
@@ -24,17 +22,15 @@ properties:
   id:
     type: string
     maxLength: 39
-    minLength: 39
+    description: Case insensitive string.
   start_date_time:
-    type: string
-    format: date-time
+    $ref: ./DateTime.yaml
   end_date_time:
-    type: string
-    format: date-time
+    $ref: ./DateTime.yaml
   session_id:
     type: string
     maxLength: 36
-    minLength: 36
+    description: Case insensitive string.
   cdr_token:
     $ref: ./CdrToken.yaml
   auth_method:
@@ -42,7 +38,7 @@ properties:
   authorization_reference:
     type: string
     maxLength: 36
-    minLength: 36
+    description: Case insensitive string.
   cdr_location:
     $ref: ./CdrLocation.yaml
   meter_id:
@@ -56,9 +52,7 @@ properties:
     items:
       $ref: ./Tariff.yaml
   charging_periods:
-    type: array
-    items:
-      $ref: ./ChargingPeriod.yaml
+    $ref: ./ChargingPeriod.yaml
   signed_data:
     $ref: ./SignedData.yaml
   total_cost:
@@ -66,18 +60,15 @@ properties:
   total_fixed_cost:
     $ref: ./Price.yaml
   total_energy:
-    type: number
-    format: float
+    $ref: ./number.yaml
   total_energy_cost:
     $ref: ./Price.yaml
   total_time:
-    type: number
-    format: float
+    $ref: ./number.yaml
   total_time_cost:
     $ref: ./Price.yaml
   total_parking_time:
-    type: number
-    format: float
+    $ref: ./number.yaml
   total_parking_cost:
     $ref: ./Price.yaml
   total_reservation_cost:
@@ -88,13 +79,13 @@ properties:
   invoice_reference_id:
     type: string
     maxLength: 39
-    minLength: 39
+    description: Case insensitive string.
   credit:
     type: boolean
   credit_reference_id:
     type: string
     maxLength: 39
-    minLength: 39
+    description: Case insensitive string.
   home_charging_compensation:
     type: boolean
   last_updated:

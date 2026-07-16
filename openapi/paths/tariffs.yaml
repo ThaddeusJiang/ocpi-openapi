@@ -1,19 +1,19 @@
 get:
   tags:
-    - Tariffs
-  summary: Sender /tariffs
+  - Tariffs
+  summary: Fetch Tariffs
   operationId: getTariffs
   security:
-    - tokenAuth: []
+  - tokenAuth: []
   parameters:
-    - $ref: ../components/parameters/collectionDateFrom.yaml
-    - $ref: ../components/parameters/collectionDateTo.yaml
-    - $ref: ../components/parameters/collectionOffset.yaml
-    - $ref: ../components/parameters/collectionLimit.yaml
+  - $ref: ../components/parameters/collectionDateFrom.yaml
+  - $ref: ../components/parameters/collectionDateTo.yaml
+  - $ref: ../components/parameters/collectionOffset.yaml
+  - $ref: ../components/parameters/collectionLimit.yaml
   responses:
-    "200":
+    '200':
       $ref: ../components/responses/TariffsResponse.yaml
-    "400":
+    '400':
       $ref: ../components/responses/BadRequest.yaml
-    "401":
+    '401':
       $ref: ../components/responses/Unauthorized.yaml

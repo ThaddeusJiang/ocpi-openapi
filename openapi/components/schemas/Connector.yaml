@@ -1,17 +1,18 @@
-summary: Connector Object
+summary: Connector schema
 type: object
 required:
-  - id
-  - standard
-  - format
-  - power_type
-  - max_voltage
-  - max_amperage
-  - last_updated
+- id
+- standard
+- format
+- power_type
+- max_voltage
+- max_amperage
+- last_updated
 properties:
   id:
     type: string
     maxLength: 36
+    description: Case insensitive string.
   standard:
     $ref: ./ConnectorType.yaml
   format:
@@ -20,8 +21,6 @@ properties:
     $ref: ./PowerType.yaml
   max_voltage:
     type: integer
-    minimum: 0
-    maximum: 999
   max_amperage:
     type: integer
   max_electric_power:
@@ -31,7 +30,8 @@ properties:
     items:
       type: string
       maxLength: 36
+      description: Case insensitive string.
   terms_and_conditions:
-    $ref: URL.yaml
+    $ref: ./URL.yaml
   last_updated:
     $ref: ./DateTime.yaml

@@ -1,4 +1,3 @@
-description: date in UTC when token expires
+description: UTC date-time when a token expires.
 schema:
-  type: string
-  format: date-time
+  $ref: ../schemas/DateTime.yaml

@@ -1,9 +1,5 @@
-description: method not allowed
+description: Method Not Allowed
 content:
   application/json:
     schema:
-      $ref: BaseResponse.yaml
-    example:
-      status_code: 405
-      status_message: method not allowed
-      timestamp: 2021-01-01T00:00:00Z
+      $ref: ./BaseResponse.yaml

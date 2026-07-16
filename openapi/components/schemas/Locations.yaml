@@ -1,0 +1,4 @@
+summary: List of Location objects
+type: array
+items:
+  $ref: ./Location.yaml

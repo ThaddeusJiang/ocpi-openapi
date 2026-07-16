@@ -1,0 +1,15 @@
+description: Location, EVSE or Connector response
+content:
+  application/json:
+    schema:
+      allOf:
+      - $ref: ./BaseResponse.yaml
+      - type: object
+        required:
+        - data
+        properties:
+          data:
+            oneOf:
+            - $ref: ../schemas/Location.yaml
+            - $ref: ../schemas/EVSE.yaml
+            - $ref: ../schemas/Connector.yaml

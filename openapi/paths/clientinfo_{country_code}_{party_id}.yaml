@@ -1,54 +1,38 @@
 get:
   tags:
-    - HubClientInfo
-  summary: "Receiver: {clientinfo_endpoint_url}/{country_code}/{party_id}"
-  description: |
-    Retrieve a ClientInfo object as it is stored in the connected clients system.
+  - HubClientInfo
+  summary: Retrieve a ClientInfo object
   operationId: getClientInfo
   security:
-    - tokenAuth: []
+  - tokenAuth: []
   parameters:
-    - $ref: ../components/parameters/countryCode.yaml
-    - $ref: ../components/parameters/partyId.yaml
+  - $ref: ../components/parameters/countryCode.yaml
+  - $ref: ../components/parameters/partyId.yaml
   responses:
-    "200":
-      description: OK
+    '200':
       $ref: ../components/responses/ClientInfoResponse.yaml
-    "401":
-      description: Unauthorized
+    '401':
       $ref: ../components/responses/Unauthorized.yaml
-    "404":
-      description: Not Found
+    '404':
       $ref: ../components/responses/NotFound.yaml
-
 put:
   tags:
-    - HubClientInfo
-  summary: "Receiver: {clientinfo_endpoint_url}/{country_code}/{party_id}"
-  description: |
-    New or updated ClientInfo objects are pushed from the Hub to a connected client.
+  - HubClientInfo
+  summary: Push a new or updated ClientInfo object
   operationId: putClientInfo
   security:
-    - tokenAuth: []
+  - tokenAuth: []
   parameters:
-    - $ref: ../components/parameters/countryCode.yaml
-    - $ref: ../components/parameters/partyId.yaml
+  - $ref: ../components/parameters/countryCode.yaml
+  - $ref: ../components/parameters/partyId.yaml
   requestBody:
-    content:
-      application/json:
-        schema:
-          $ref: ../components/schemas/ClientInfo.yaml
-
+    $ref: ../components/requestBodies/ClientInfo.yaml
   responses:
-    "200":
-      description: Updated
+    '200':
       $ref: ../components/responses/ClientInfoResponse.yaml
-    "201":
-      description: Created
+    '201':
       $ref: ../components/responses/ClientInfoResponse.yaml
-    "400":
-      description: Bad Request
+    '400':
       $ref: ../components/responses/BadRequest.yaml
-    "401":
-      description: Unauthorized
+    '401':
       $ref: ../components/responses/Unauthorized.yaml

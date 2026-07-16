@@ -1,0 +1,7 @@
+summary: Command request object
+oneOf:
+- $ref: ./CancelReservation.yaml
+- $ref: ./ReserveNow.yaml
+- $ref: ./StartSession.yaml
+- $ref: ./StopSession.yaml
+- $ref: ./UnlockConnector.yaml

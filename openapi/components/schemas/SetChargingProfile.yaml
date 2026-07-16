@@ -1,7 +1,8 @@
+summary: SetChargingProfile schema
 type: object
 required:
-  - charging_profile
-  - response_url
+- charging_profile
+- response_url
 properties:
   charging_profile:
     $ref: ./ChargingProfile.yaml

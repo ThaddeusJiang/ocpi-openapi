@@ -1,15 +1,12 @@
-description: Success
+description: Charging preferences response
 content:
   application/json:
     schema:
       allOf:
-        - $ref: ./BaseResponse.yaml
-        - properties:
-            data:
-              type: string
-              enum:
-                - ACCEPTED
-                - DEPARTURE_REQUIRED
-                - ENERGY_NEED_REQUIRED
-                - NOT_POSSIBLE
-                - PROFILE_TYPE_NOT_SUPPORTED
+      - $ref: ./BaseResponse.yaml
+      - type: object
+        required:
+        - data
+        properties:
+          data:
+            $ref: ../schemas/ChargingPreferencesResponse.yaml

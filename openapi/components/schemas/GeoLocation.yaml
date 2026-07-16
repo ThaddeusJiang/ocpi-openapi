@@ -1,8 +1,8 @@
-summary: GeoLocation class
+summary: GeoLocation schema
 type: object
 required:
-  - latitude
-  - longitude
+- latitude
+- longitude
 properties:
   latitude:
     type: string

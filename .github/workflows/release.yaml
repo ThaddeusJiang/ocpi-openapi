@@ -1,61 +1,75 @@
 name: Release npm packages
+run-name: Release npm packages from ${{ github.ref_name }}
+
 on:
   push:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
   publish-dts:
+    name: Publish OpenAPI packages
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
         with:
-          node-version: '18'
-          registry-url: 'https://registry.npmjs.org'
-      - run: echo 'Install yq...'
-      - run: curl -LJO https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
-      - run: sudo mv yq_linux_amd64 /usr/local/bin/yq
-      - run: sudo chmod a+x /usr/local/bin/yq
-      - run: echo 'NPM install & build...'
-      - run: npm ci
-      - run: npm run build
-      - run: echo "__OAS_VERSION=`/usr/bin/yq e '.info.version' openapi/openapi.yaml`" >> "$GITHUB_ENV"
-      - run: cp ./openapi/base.package.json ./dist/yaml/package.json
-      - name: Create package.json for yaml package...
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          cache: npm
+
+      - name: Install dependencies and build packages
+        run: |
+          npm ci
+          npm run build
+          cp ./openapi/base.package.json ./dist/yaml/package.json
+          cp ./openapi/base.package.json ./dist/dts/package.json
+
+      - name: Read package version
+        run: node -e "console.log('__OAS_VERSION=' + require('./package.json').version)" >> "$GITHUB_ENV"
+
+      - name: Create package.json for yaml package
         env:
           __PACKAGE_NAME: '@plugoinc/ocpi-openapi-yaml'
-          __MAIN_FILE: 'openapi.yaml'
+          __MAIN_FILE: openapi.yaml
         working-directory: ./dist/yaml
         run: |
-          cat ./package.json | jq --arg NAME $__PACKAGE_NAME '.name = $NAME' > ./package.json.tmp
-          mv ./package.json.tmp ./package.json
-          cat ./package.json | jq --arg VERSION $__OAS_VERSION '.version = $VERSION' > ./package.json.tmp
-          mv ./package.json.tmp ./package.json
-          cat ./package.json | jq --arg MAIN $__MAIN_FILE '.main = $MAIN' > ./package.json.tmp
-          mv ./package.json.tmp ./package.json
-          cat ./package.json
-      - run: cp ./openapi/base.package.json ./dist/dts/package.json
-      - name: Create package.json for dts package...
+          jq --arg NAME "$__PACKAGE_NAME" '.name = $NAME' package.json > package.json.tmp
+          mv package.json.tmp package.json
+          jq --arg VERSION "$__OAS_VERSION" '.version = $VERSION' package.json > package.json.tmp
+          mv package.json.tmp package.json
+          jq --arg MAIN "$__MAIN_FILE" '.main = $MAIN' package.json > package.json.tmp
+          mv package.json.tmp package.json
+          cat package.json
+
+      - name: Create package.json for dts package
         env:
           __PACKAGE_NAME: '@plugoinc/ocpi-openapi-dts'
-          __MAIN_FILE: 'schema.d.ts'
+          __MAIN_FILE: schema.d.ts
         working-directory: ./dist/dts
         run: |
-          cat ./package.json | jq --arg NAME $__PACKAGE_NAME '.name = $NAME' > ./package.json.tmp
-          mv ./package.json.tmp ./package.json
-          cat ./package.json | jq --arg VERSION $__OAS_VERSION '.version = $VERSION' > ./package.json.tmp
-          mv ./package.json.tmp ./package.json
-          cat ./package.json | jq --arg MAIN $__MAIN_FILE '.main = $MAIN' > ./package.json.tmp
-          mv ./package.json.tmp ./package.json
-          cat ./package.json
-      - name: Publish yaml package to npmjs...
-        run: npm publish -access public
+          jq --arg NAME "$__PACKAGE_NAME" '.name = $NAME' package.json > package.json.tmp
+          mv package.json.tmp package.json
+          jq --arg VERSION "$__OAS_VERSION" '.version = $VERSION' package.json > package.json.tmp
+          mv package.json.tmp package.json
+          jq --arg MAIN "$__MAIN_FILE" '.main = $MAIN' package.json > package.json.tmp
+          mv package.json.tmp package.json
+          cat package.json
+
+      - name: Publish yaml package to npmjs
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         working-directory: ./dist/yaml
-      - name: Publish dts package to npmjs...
-        run: npm publish -access public
+
+      - name: Publish dts package to npmjs
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         working-directory: ./dist/dts
