@@ -2,7 +2,7 @@
 
 import type { Client, ClientMeta, Options as Options2, RequestResult, TDataShape } from './client';
 import { client } from './client.gen';
-import type { AuthorizeTokenData, AuthorizeTokenErrors, AuthorizeTokenResponses, CreateCdrData, CreateCdrErrors, CreateCdrResponses, DeleteChargingProfileData, DeleteChargingProfileErrors, DeleteChargingProfileResponses, DeleteCredentialsData, DeleteCredentialsErrors, DeleteCredentialsResponses, DeleteTariffData, DeleteTariffErrors, DeleteTariffResponses, GetActiveChargingProfileData, GetActiveChargingProfileErrors, GetActiveChargingProfileResponses, GetCdrByIdData, GetCdrByIdErrors, GetCdrByIdResponses, GetCdrsData, GetCdrsErrors, GetCdrsResponses, GetClientInfoData, GetClientInfoErrors, GetClientInfoResponses, GetConnectorData, GetConnectorErrors, GetConnectorResponses, GetCredentialsData, GetCredentialsErrors, GetCredentialsResponses, GetEvseData, GetEvseErrors, GetEvseResponses, GetHubClientInfosData, GetHubClientInfosErrors, GetHubClientInfosResponses, GetLocationData, GetLocationErrors, GetLocationResponses, GetLocationsData, GetLocationsErrors, GetLocationsResponses, GetPushedLocationObjectConnectorData, GetPushedLocationObjectConnectorErrors, GetPushedLocationObjectConnectorResponses, GetPushedLocationObjectData, GetPushedLocationObjectErrors, GetPushedLocationObjectEvseData, GetPushedLocationObjectEvseErrors, GetPushedLocationObjectEvseResponses, GetPushedLocationObjectResponses, GetSessionByIdData, GetSessionByIdErrors, GetSessionByIdResponses, GetSessionsData, GetSessionsErrors, GetSessionsResponses, GetTariffByIdData, GetTariffByIdErrors, GetTariffByIdResponses, GetTariffsData, GetTariffsErrors, GetTariffsResponses, GetTokenByIdData, GetTokenByIdErrors, GetTokenByIdResponses, GetTokensData, GetTokensErrors, GetTokensResponses, GetVersionDetailsData, GetVersionDetailsErrors, GetVersionDetailsResponses, GetVersionsData, GetVersionsErrors, GetVersionsResponses, PatchLocationObjectConnectorData, PatchLocationObjectConnectorErrors, PatchLocationObjectConnectorResponses, PatchLocationObjectData, PatchLocationObjectErrors, PatchLocationObjectEvseData, PatchLocationObjectEvseErrors, PatchLocationObjectEvseResponses, PatchLocationObjectResponses, PatchSessionByIdData, PatchSessionByIdErrors, PatchSessionByIdResponses, PatchTokenData, PatchTokenErrors, PatchTokenResponses, PostCredentialsData, PostCredentialsErrors, PostCredentialsResponses, PutChargingProfileData, PutChargingProfileErrors, PutChargingProfileResponses, PutClientInfoData, PutClientInfoErrors, PutClientInfoResponses, PutCredentialsData, PutCredentialsErrors, PutCredentialsResponses, PutLocationObjectConnectorData, PutLocationObjectConnectorErrors, PutLocationObjectConnectorResponses, PutLocationObjectData, PutLocationObjectErrors, PutLocationObjectEvseData, PutLocationObjectEvseErrors, PutLocationObjectEvseResponses, PutLocationObjectResponses, PutSessionByIdData, PutSessionByIdErrors, PutSessionByIdResponses, PutTariffData, PutTariffErrors, PutTariffResponses, PutTokenData, PutTokenErrors, PutTokenResponses, ReceiveActiveChargingProfileUpdateData, ReceiveActiveChargingProfileUpdateErrors, ReceiveActiveChargingProfileUpdateResponses, ReceiveChargingProfileResultData, ReceiveChargingProfileResultErrors, ReceiveChargingProfileResultResponses, ReceiveCommandResultData, ReceiveCommandResultErrors, ReceiveCommandResultResponses, SendCommandData, SendCommandErrors, SendCommandResponses, SetChargingPreferencesData, SetChargingPreferencesErrors, SetChargingPreferencesResponses } from './types.gen';
+import type { DeleteChargingProfileData, DeleteChargingProfileErrors, DeleteChargingProfileResponses, DeleteCredentialsData, DeleteCredentialsErrors, DeleteCredentialsResponses, GetActiveChargingProfileData, GetActiveChargingProfileErrors, GetActiveChargingProfileResponses, GetCdrByIdData, GetCdrByIdErrors, GetCdrByIdResponses, GetCdrsData, GetCdrsErrors, GetCdrsResponses, GetConnectorData, GetConnectorErrors, GetConnectorResponses, GetCredentialsData, GetCredentialsErrors, GetCredentialsResponses, GetEvseData, GetEvseErrors, GetEvseResponses, GetLocationData, GetLocationErrors, GetLocationResponses, GetLocationsData, GetLocationsErrors, GetLocationsResponses, GetSessionByIdData, GetSessionByIdErrors, GetSessionByIdResponses, GetSessionsData, GetSessionsErrors, GetSessionsResponses, GetTariffByIdData, GetTariffByIdErrors, GetTariffByIdResponses, GetTariffsData, GetTariffsErrors, GetTariffsResponses, GetVersionDetailsData, GetVersionDetailsErrors, GetVersionDetailsResponses, GetVersionsData, GetVersionsErrors, GetVersionsResponses, PatchTokenData, PatchTokenErrors, PatchTokenResponses, PostCredentialsData, PostCredentialsErrors, PostCredentialsResponses, PutChargingProfileData, PutChargingProfileErrors, PutChargingProfileResponses, PutCredentialsData, PutCredentialsErrors, PutCredentialsResponses, PutTokenData, PutTokenErrors, PutTokenResponses, SendCommandData, SendCommandErrors, SendCommandResponses, SetChargingPreferencesData, SetChargingPreferencesErrors, SetChargingPreferencesResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -117,111 +117,6 @@ export const getConnector = <ThrowOnError extends boolean = false>(options: Opti
 });
 
 /**
- * Retrieve pushed Location, EVSE or Connector
- */
-export const getPushedLocationObject = <ThrowOnError extends boolean = false>(options: Options<GetPushedLocationObjectData, ThrowOnError>): RequestResult<GetPushedLocationObjectResponses, GetPushedLocationObjectErrors, ThrowOnError> => (options.client ?? client).get<GetPushedLocationObjectResponses, GetPushedLocationObjectErrors, ThrowOnError>({
-    security: [{ name: 'Authorization', type: 'apiKey' }],
-    url: '/locations/{country_code}/{party_id}/{location_id}',
-    ...options
-});
-
-/**
- * Partially update a Location, EVSE or Connector
- */
-export const patchLocationObject = <ThrowOnError extends boolean = false>(options: Options<PatchLocationObjectData, ThrowOnError>): RequestResult<PatchLocationObjectResponses, PatchLocationObjectErrors, ThrowOnError> => (options.client ?? client).patch<PatchLocationObjectResponses, PatchLocationObjectErrors, ThrowOnError>({
-    security: [{ name: 'Authorization', type: 'apiKey' }],
-    url: '/locations/{country_code}/{party_id}/{location_id}',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
-});
-
-/**
- * Push new or updated Location, EVSE or Connector
- */
-export const putLocationObject = <ThrowOnError extends boolean = false>(options: Options<PutLocationObjectData, ThrowOnError>): RequestResult<PutLocationObjectResponses, PutLocationObjectErrors, ThrowOnError> => (options.client ?? client).put<PutLocationObjectResponses, PutLocationObjectErrors, ThrowOnError>({
-    security: [{ name: 'Authorization', type: 'apiKey' }],
-    url: '/locations/{country_code}/{party_id}/{location_id}',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
-});
-
-/**
- * Retrieve pushed Location, EVSE or Connector
- */
-export const getPushedLocationObjectEvse = <ThrowOnError extends boolean = false>(options: Options<GetPushedLocationObjectEvseData, ThrowOnError>): RequestResult<GetPushedLocationObjectEvseResponses, GetPushedLocationObjectEvseErrors, ThrowOnError> => (options.client ?? client).get<GetPushedLocationObjectEvseResponses, GetPushedLocationObjectEvseErrors, ThrowOnError>({
-    security: [{ name: 'Authorization', type: 'apiKey' }],
-    url: '/locations/{country_code}/{party_id}/{location_id}/{evse_uid}',
-    ...options
-});
-
-/**
- * Partially update a Location, EVSE or Connector
- */
-export const patchLocationObjectEvse = <ThrowOnError extends boolean = false>(options: Options<PatchLocationObjectEvseData, ThrowOnError>): RequestResult<PatchLocationObjectEvseResponses, PatchLocationObjectEvseErrors, ThrowOnError> => (options.client ?? client).patch<PatchLocationObjectEvseResponses, PatchLocationObjectEvseErrors, ThrowOnError>({
-    security: [{ name: 'Authorization', type: 'apiKey' }],
-    url: '/locations/{country_code}/{party_id}/{location_id}/{evse_uid}',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
-});
-
-/**
- * Push new or updated Location, EVSE or Connector
- */
-export const putLocationObjectEvse = <ThrowOnError extends boolean = false>(options: Options<PutLocationObjectEvseData, ThrowOnError>): RequestResult<PutLocationObjectEvseResponses, PutLocationObjectEvseErrors, ThrowOnError> => (options.client ?? client).put<PutLocationObjectEvseResponses, PutLocationObjectEvseErrors, ThrowOnError>({
-    security: [{ name: 'Authorization', type: 'apiKey' }],
-    url: '/locations/{country_code}/{party_id}/{location_id}/{evse_uid}',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
-});
-
-/**
- * Retrieve pushed Location, EVSE or Connector
- */
-export const getPushedLocationObjectConnector = <ThrowOnError extends boolean = false>(options: Options<GetPushedLocationObjectConnectorData, ThrowOnError>): RequestResult<GetPushedLocationObjectConnectorResponses, GetPushedLocationObjectConnectorErrors, ThrowOnError> => (options.client ?? client).get<GetPushedLocationObjectConnectorResponses, GetPushedLocationObjectConnectorErrors, ThrowOnError>({
-    security: [{ name: 'Authorization', type: 'apiKey' }],
-    url: '/locations/{country_code}/{party_id}/{location_id}/{evse_uid}/{connector_id}',
-    ...options
-});
-
-/**
- * Partially update a Location, EVSE or Connector
- */
-export const patchLocationObjectConnector = <ThrowOnError extends boolean = false>(options: Options<PatchLocationObjectConnectorData, ThrowOnError>): RequestResult<PatchLocationObjectConnectorResponses, PatchLocationObjectConnectorErrors, ThrowOnError> => (options.client ?? client).patch<PatchLocationObjectConnectorResponses, PatchLocationObjectConnectorErrors, ThrowOnError>({
-    security: [{ name: 'Authorization', type: 'apiKey' }],
-    url: '/locations/{country_code}/{party_id}/{location_id}/{evse_uid}/{connector_id}',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
-});
-
-/**
- * Push new or updated Location, EVSE or Connector
- */
-export const putLocationObjectConnector = <ThrowOnError extends boolean = false>(options: Options<PutLocationObjectConnectorData, ThrowOnError>): RequestResult<PutLocationObjectConnectorResponses, PutLocationObjectConnectorErrors, ThrowOnError> => (options.client ?? client).put<PutLocationObjectConnectorResponses, PutLocationObjectConnectorErrors, ThrowOnError>({
-    security: [{ name: 'Authorization', type: 'apiKey' }],
-    url: '/locations/{country_code}/{party_id}/{location_id}/{evse_uid}/{connector_id}',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
-});
-
-/**
  * Fetch Sessions
  */
 export const getSessions = <ThrowOnError extends boolean = false>(options?: Options<GetSessionsData, ThrowOnError>): RequestResult<GetSessionsResponses, GetSessionsErrors, ThrowOnError> => (options?.client ?? client).get<GetSessionsResponses, GetSessionsErrors, ThrowOnError>({
@@ -237,32 +132,6 @@ export const getSessionById = <ThrowOnError extends boolean = false>(options: Op
     security: [{ name: 'Authorization', type: 'apiKey' }],
     url: '/sessions/{country_code}/{party_id}/{session_id}',
     ...options
-});
-
-/**
- * Partially update a Session
- */
-export const patchSessionById = <ThrowOnError extends boolean = false>(options: Options<PatchSessionByIdData, ThrowOnError>): RequestResult<PatchSessionByIdResponses, PatchSessionByIdErrors, ThrowOnError> => (options.client ?? client).patch<PatchSessionByIdResponses, PatchSessionByIdErrors, ThrowOnError>({
-    security: [{ name: 'Authorization', type: 'apiKey' }],
-    url: '/sessions/{country_code}/{party_id}/{session_id}',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
-});
-
-/**
- * Push a new or updated Session
- */
-export const putSessionById = <ThrowOnError extends boolean = false>(options: Options<PutSessionByIdData, ThrowOnError>): RequestResult<PutSessionByIdResponses, PutSessionByIdErrors, ThrowOnError> => (options.client ?? client).put<PutSessionByIdResponses, PutSessionByIdErrors, ThrowOnError>({
-    security: [{ name: 'Authorization', type: 'apiKey' }],
-    url: '/sessions/{country_code}/{party_id}/{session_id}',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
 });
 
 /**
@@ -288,19 +157,6 @@ export const getCdrs = <ThrowOnError extends boolean = false>(options?: Options<
 });
 
 /**
- * Create a CDR
- */
-export const createCdr = <ThrowOnError extends boolean = false>(options: Options<CreateCdrData, ThrowOnError>): RequestResult<CreateCdrResponses, CreateCdrErrors, ThrowOnError> => (options.client ?? client).post<CreateCdrResponses, CreateCdrErrors, ThrowOnError>({
-    security: [{ name: 'Authorization', type: 'apiKey' }],
-    url: '/cdrs',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
-});
-
-/**
  * Retrieve a CDR
  */
 export const getCdrById = <ThrowOnError extends boolean = false>(options: Options<GetCdrByIdData, ThrowOnError>): RequestResult<GetCdrByIdResponses, GetCdrByIdErrors, ThrowOnError> => (options.client ?? client).get<GetCdrByIdResponses, GetCdrByIdErrors, ThrowOnError>({
@@ -319,51 +175,11 @@ export const getTariffs = <ThrowOnError extends boolean = false>(options?: Optio
 });
 
 /**
- * Delete a Tariff
- */
-export const deleteTariff = <ThrowOnError extends boolean = false>(options: Options<DeleteTariffData, ThrowOnError>): RequestResult<DeleteTariffResponses, DeleteTariffErrors, ThrowOnError> => (options.client ?? client).delete<DeleteTariffResponses, DeleteTariffErrors, ThrowOnError>({
-    security: [{ name: 'Authorization', type: 'apiKey' }],
-    url: '/tariffs/{country_code}/{party_id}/{tariff_id}',
-    ...options
-});
-
-/**
  * Retrieve a Tariff
  */
 export const getTariffById = <ThrowOnError extends boolean = false>(options: Options<GetTariffByIdData, ThrowOnError>): RequestResult<GetTariffByIdResponses, GetTariffByIdErrors, ThrowOnError> => (options.client ?? client).get<GetTariffByIdResponses, GetTariffByIdErrors, ThrowOnError>({
     security: [{ name: 'Authorization', type: 'apiKey' }],
     url: '/tariffs/{country_code}/{party_id}/{tariff_id}',
-    ...options
-});
-
-/**
- * Push a new or updated Tariff
- */
-export const putTariff = <ThrowOnError extends boolean = false>(options: Options<PutTariffData, ThrowOnError>): RequestResult<PutTariffResponses, PutTariffErrors, ThrowOnError> => (options.client ?? client).put<PutTariffResponses, PutTariffErrors, ThrowOnError>({
-    security: [{ name: 'Authorization', type: 'apiKey' }],
-    url: '/tariffs/{country_code}/{party_id}/{tariff_id}',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
-});
-
-/**
- * Fetch Tokens
- */
-export const getTokens = <ThrowOnError extends boolean = false>(options?: Options<GetTokensData, ThrowOnError>): RequestResult<GetTokensResponses, GetTokensErrors, ThrowOnError> => (options?.client ?? client).get<GetTokensResponses, GetTokensErrors, ThrowOnError>({
-    security: [{ name: 'Authorization', type: 'apiKey' }],
-    url: '/tokens',
-    ...options
-});
-
-/**
- * Retrieve a Token
- */
-export const getTokenById = <ThrowOnError extends boolean = false>(options: Options<GetTokenByIdData, ThrowOnError>): RequestResult<GetTokenByIdResponses, GetTokenByIdErrors, ThrowOnError> => (options.client ?? client).get<GetTokenByIdResponses, GetTokenByIdErrors, ThrowOnError>({
-    security: [{ name: 'Authorization', type: 'apiKey' }],
-    url: '/tokens/{country_code}/{party_id}/{token_uid}',
     ...options
 });
 
@@ -394,37 +210,11 @@ export const putToken = <ThrowOnError extends boolean = false>(options: Options<
 });
 
 /**
- * Authorize a Token in real time
- */
-export const authorizeToken = <ThrowOnError extends boolean = false>(options: Options<AuthorizeTokenData, ThrowOnError>): RequestResult<AuthorizeTokenResponses, AuthorizeTokenErrors, ThrowOnError> => (options.client ?? client).post<AuthorizeTokenResponses, AuthorizeTokenErrors, ThrowOnError>({
-    security: [{ name: 'Authorization', type: 'apiKey' }],
-    url: '/tokens/{token_uid}/authorize',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
-});
-
-/**
  * Send a command request
  */
 export const sendCommand = <ThrowOnError extends boolean = false>(options: Options<SendCommandData, ThrowOnError>): RequestResult<SendCommandResponses, SendCommandErrors, ThrowOnError> => (options.client ?? client).post<SendCommandResponses, SendCommandErrors, ThrowOnError>({
     security: [{ name: 'Authorization', type: 'apiKey' }],
     url: '/commands/{command}',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
-});
-
-/**
- * Receive an asynchronous command result
- */
-export const receiveCommandResult = <ThrowOnError extends boolean = false>(options: Options<ReceiveCommandResultData, ThrowOnError>): RequestResult<ReceiveCommandResultResponses, ReceiveCommandResultErrors, ThrowOnError> => (options.client ?? client).post<ReceiveCommandResultResponses, ReceiveCommandResultErrors, ThrowOnError>({
-    security: [{ name: 'Authorization', type: 'apiKey' }],
-    url: '/commands/{command}/{uid}',
     ...options,
     headers: {
         'Content-Type': 'application/json',
@@ -461,65 +251,4 @@ export const putChargingProfile = <ThrowOnError extends boolean = false>(options
         'Content-Type': 'application/json',
         ...options.headers
     }
-});
-
-/**
- * Receive an asynchronous ChargingProfiles result
- *
- * OCPI leaves the Sender callback URL implementation-defined; this path documents the expected callback body.
- */
-export const receiveChargingProfileResult = <ThrowOnError extends boolean = false>(options: Options<ReceiveChargingProfileResultData, ThrowOnError>): RequestResult<ReceiveChargingProfileResultResponses, ReceiveChargingProfileResultErrors, ThrowOnError> => (options.client ?? client).post<ReceiveChargingProfileResultResponses, ReceiveChargingProfileResultErrors, ThrowOnError>({
-    security: [{ name: 'Authorization', type: 'apiKey' }],
-    url: '/chargingprofiles/{session_id}/result',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
-});
-
-/**
- * Receive an ActiveChargingProfile update
- *
- * OCPI leaves the Sender callback URL implementation-defined; this path documents the expected update body.
- */
-export const receiveActiveChargingProfileUpdate = <ThrowOnError extends boolean = false>(options: Options<ReceiveActiveChargingProfileUpdateData, ThrowOnError>): RequestResult<ReceiveActiveChargingProfileUpdateResponses, ReceiveActiveChargingProfileUpdateErrors, ThrowOnError> => (options.client ?? client).put<ReceiveActiveChargingProfileUpdateResponses, ReceiveActiveChargingProfileUpdateErrors, ThrowOnError>({
-    security: [{ name: 'Authorization', type: 'apiKey' }],
-    url: '/chargingprofiles/{session_id}/active_charging_profile',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
-});
-
-/**
- * Retrieve a ClientInfo object
- */
-export const getClientInfo = <ThrowOnError extends boolean = false>(options: Options<GetClientInfoData, ThrowOnError>): RequestResult<GetClientInfoResponses, GetClientInfoErrors, ThrowOnError> => (options.client ?? client).get<GetClientInfoResponses, GetClientInfoErrors, ThrowOnError>({
-    security: [{ name: 'Authorization', type: 'apiKey' }],
-    url: '/clientinfo/{country_code}/{party_id}',
-    ...options
-});
-
-/**
- * Push a new or updated ClientInfo object
- */
-export const putClientInfo = <ThrowOnError extends boolean = false>(options: Options<PutClientInfoData, ThrowOnError>): RequestResult<PutClientInfoResponses, PutClientInfoErrors, ThrowOnError> => (options.client ?? client).put<PutClientInfoResponses, PutClientInfoErrors, ThrowOnError>({
-    security: [{ name: 'Authorization', type: 'apiKey' }],
-    url: '/clientinfo/{country_code}/{party_id}',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
-});
-
-/**
- * Fetch ClientInfo objects known by a hub
- */
-export const getHubClientInfos = <ThrowOnError extends boolean = false>(options?: Options<GetHubClientInfosData, ThrowOnError>): RequestResult<GetHubClientInfosResponses, GetHubClientInfosErrors, ThrowOnError> => (options?.client ?? client).get<GetHubClientInfosResponses, GetHubClientInfosErrors, ThrowOnError>({
-    security: [{ name: 'Authorization', type: 'apiKey' }],
-    url: '/hubclientinfo',
-    ...options
 });
