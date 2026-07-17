@@ -1,259 +1,124 @@
 # OCPI OpenAPI Definition
 
-## Working on your OpenAPI Definition
+![Generated client coverage](docs/coverage.svg)
 
-### Install
+OpenAPI 3.1 definitions for OCPI 2.2.1-d2, plus the generated TypeScript client package `@thaddeusjiang/ocpi` and an OpenAPI-driven mock server for integration testing.
 
-1. Install [Node JS](https://nodejs.org/).
-2. Clone this repo and run `npm install` in the repo root.
+## Install
 
-### Usage
+```sh
+npm ci
+```
 
-#### `npm start`
-Starts the reference docs preview server.
+## Generate
 
-#### `npm run build`
-Bundles the definition to the dist folder.
+```sh
+npm run build
+```
 
-#### `npm run build:docs`
-Builds the static OpenAPI documentation for GitHub Pages into `dist/pages`.
+`npm run build` produces:
 
-#### `npm test`
-Validates the definition.
+- `dist/yaml/openapi.yaml`: bundled OpenAPI document.
+- `dist/dts/schema.d.ts`: OpenAPI TypeScript schema types.
+- `src/generated`: generated TypeScript request client from `@hey-api/openapi-ts`.
+
+To regenerate only the TypeScript client:
+
+```sh
+npm run generate:client
+```
+
+To build the npm package output:
+
+```sh
+npm run build:package
+```
+
+## Mock Server
+
+```sh
+npm run mock
+```
+
+The mock server is generated from the bundled OpenAPI document with Prism and listens on `http://127.0.0.1:4010`.
+
+## Test
+
+```sh
+npm test
+```
+
+The test command lints the OpenAPI definition, regenerates the TypeScript client, type-checks the generated code, starts a generated Prism mock server, runs every generated SDK operation against it, enforces 100% coverage for the generated public client surface, and updates `docs/coverage.svg`.
+
+For only the generated client integration test:
+
+```sh
+npm run test:integration
+```
+
+For the npm package dry-run:
+
+```sh
+npm run pack:check
+```
+
+## Client Usage
+
+After the package is published:
+
+```sh
+npm install @thaddeusjiang/ocpi
+```
+
+```ts
+import { getVersions } from '@thaddeusjiang/ocpi';
+import { client } from '@thaddeusjiang/ocpi/client';
+
+client.setConfig({
+  baseUrl: 'https://ocpi.example.com/2.2.1',
+  auth: 'Token your-ocpi-token',
+});
+
+const { data, error, response } = await getVersions();
+
+if (error) {
+  throw new Error(`OCPI request failed with status ${response?.status}`);
+}
+
+console.log(data.data);
+```
+
+## Coverage
+
+The previous 39.32% line coverage happened because Vitest counted the whole generated Hey API runtime, including internal fetch helpers, serializers, and SSE support that are not part of the OCPI request operation surface exercised by the integration test.
+
+The badge now measures the generated public client surface:
+
+- `src/generated/client.gen.ts`
+- `src/generated/index.ts`
+- `src/generated/sdk.gen.ts`
+
+Vitest enforces 100% statements, branches, functions, and lines for those files.
+
+## npm Publishing
+
+`.github/workflows/publish-npm.yaml` publishes `@thaddeusjiang/ocpi` when a GitHub Release is published, or when the workflow is manually run with a release tag.
+
+Release tags must match `package.json` version after removing an optional leading `v`, for example `v2.2.1-d2` matches `2.2.1-d2`.
+
+Publishing uses npm Trusted Publishing with GitHub Actions OIDC:
+
+- No `npm_token` or `NPM_TOKEN` is used.
+- The workflow grants `id-token: write`.
+- The publish command is `npm publish --access public --provenance --tag next`.
+- `2.2.1-d2` is a prerelease version, so npm requires an explicit non-`latest` dist-tag. This package publishes it as `next`.
+- Configure npm package Trusted Publisher with owner `ThaddeusJiang`, repository `ocpi`, workflow filename `publish-npm.yaml`, and allowed action `npm publish`.
+
+Local terminal publishing cannot generate npm provenance because there is no supported CI/OIDC provider. If you need to publish locally, use `npm publish --access public --tag next` without `--provenance`.
+
+See npm's Trusted Publishing documentation: https://docs.npmjs.com/trusted-publishers/
 
 ## GitHub Pages
 
 The OpenAPI reference is deployed from `.github/workflows/pages.yaml`.
-The workflow lints `openapi/openapi.yaml`, builds the static Redoc page, and
-publishes it to GitHub Pages from the `main` branch.
-
-## Contribution Guide
-
-Below is a sample contribution guide. The tools
-in the repository don't restrict you to any
-specific structure. Adjust the contribution guide
-to match your own structure. However, if you
-don't have a structure in mind, this is a
-good place to start.
-
-Update this contribution guide if you
-adjust the file/folder organization.
-
-The `.redocly.yaml` controls settings for various
-tools including the lint tool and the reference
-docs engine.  Open it to find examples and
-[read the docs](https://redoc.ly/docs/cli/configuration/)
-for more information.
-
-
-### Schemas
-
-#### Adding Schemas
-
-1. Navigate to the `openapi/components/schemas` folder.
-2. Add a file named as you wish to name the schema.
-3. Define the schema.
-4. Refer to the schema using the `$ref` (see example below).
-
-##### Example Schema
-This is a very simple schema example:
-```yaml
-type: string
-description: The resource ID. Defaults to UUID v4
-maxLength: 50
-example: 4f6cf35x-2c4y-483z-a0a9-158621f77a21
-```
-This is a more complex schema example:
-```yaml
-type: object
-properties:
-  id:
-    description: The customer identifier string
-    readOnly: true
-    allOf:
-      - $ref: ./ResourceId.yaml
-  websiteId:
-    description: The website's ID
-    allOf:
-      - $ref: ./ResourceId.yaml
-  paymentToken:
-    type: string
-    writeOnly: true
-    description: |
-      A write-only payment token; if supplied, it will be converted into a
-      payment instrument and be set as the `defaultPaymentInstrument`. The
-      value of this property will override the `defaultPaymentInstrument`
-      in the case that both are supplied. The token may only be used once
-      before it is expired.
-  defaultPaymentInstrument:
-    $ref: ./PaymentInstrument.yaml
-  createdTime:
-    description: The customer created time
-    allOf:
-      - $ref: ./ServerTimestamp.yaml
-  updatedTime:
-    description: The customer updated time
-    allOf:
-      - $ref: ./ServerTimestamp.yaml
-  tags:
-    description: A list of customer's tags
-    readOnly: true
-    type: array
-    items:
-      $ref: ./Tags/Tag.yaml
-  revision:
-    description: >
-      The number of times the customer data has been modified.
-
-      The revision is useful when analyzing webhook data to determine if the
-      change takes precedence over the current representation.
-    type: integer
-    readOnly: true
-  _links:
-    type: array
-    description: The links related to resource
-    readOnly: true
-    minItems: 3
-    items:
-      anyOf:
-        - $ref: ./Links/SelfLink.yaml
-        - $ref: ./Links/NotesLink.yaml
-        - $ref: ./Links/DefaultPaymentInstrumentLink.yaml
-        - $ref: ./Links/LeadSourceLink.yaml
-        - $ref: ./Links/WebsiteLink.yaml
-  _embedded:
-    type: array
-    description: >-
-      Any embedded objects available that are requested by the `expand`
-      querystring parameter.
-    readOnly: true
-    minItems: 1
-    items:
-      anyOf:
-        - $ref: ./Embeds/LeadSourceEmbed.yaml
-
-```
-
-##### Using the `$ref`
-
-Notice in the complex example above the schema definition itself has `$ref` links to other schemas defined.
-
-Here is a small excerpt with an example:
-
-```yaml
-defaultPaymentInstrument:
-  $ref: ./PaymentInstrument.yaml
-```
-
-The value of the `$ref` is the path to the other schema definition.
-
-You may use `$ref`s to compose schema from other existing schema to avoid duplication.
-
-You will use `$ref`s to reference schema from your path definitions.
-
-#### Editing Schemas
-
-1. Navigate to the `openapi/components/schemas` folder.
-2. Open the file you wish to edit.
-3. Edit.
-
-### Paths
-
-#### Adding a Path
-
-1. Navigate to the `openapi/paths` folder.
-2. Add a new YAML file named like your URL endpoint except replacing `/` with `@` and putting path parameters into curly braces like `{example}`.
-3. Add the path and a ref to it inside of your `openapi.yaml` file inside of the `openapi` folder.
-
-Example addition to the `openapi.yaml` file:
-```yaml
-'/customers/{id}':
-  $ref: './paths/customers@{id}.yaml'
-```
-
-Here is an example of a YAML file named `customers@{id}.yaml` in the `paths` folder:
-
-```yaml
-get:
-  tags:
-    - Customers
-  summary: Retrieve a list of customers
-  operationId: GetCustomerCollection
-  description: |
-    You can have a markdown description here.
-  parameters:
-    - $ref: ../components/parameters/collectionLimit.yaml
-    - $ref: ../components/parameters/collectionOffset.yaml
-    - $ref: ../components/parameters/collectionFilter.yaml
-    - $ref: ../components/parameters/collectionQuery.yaml
-    - $ref: ../components/parameters/collectionExpand.yaml
-    - $ref: ../components/parameters/collectionFields.yaml
-  responses:
-    '200':
-      description: A list of Customers was retrieved successfully
-      headers:
-        Rate-Limit-Limit:
-          $ref: ../components/headers/Rate-Limit-Limit.yaml
-        Rate-Limit-Remaining:
-          $ref: ../components/headers/Rate-Limit-Remaining.yaml
-        Rate-Limit-Reset:
-          $ref: ../components/headers/Rate-Limit-Reset.yaml
-        Pagination-Total:
-          $ref: ../components/headers/Pagination-Total.yaml
-        Pagination-Limit:
-          $ref: ../components/headers/Pagination-Limit.yaml
-        Pagination-Offset:
-          $ref: ../components/headers/Pagination-Offset.yaml
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: ../components/schemas/Customer.yaml
-        text/csv:
-          schema:
-            type: array
-            items:
-              $ref: ../components/schemas/Customer.yaml
-    '401':
-      $ref: ../components/responses/AccessForbidden.yaml
-  x-code-samples:
-    - lang: PHP
-      source:
-        $ref: ../code_samples/PHP/customers/get.php
-post:
-  tags:
-    - Customers
-  summary: Create a customer (without an ID)
-  operationId: PostCustomer
-  description: Another markdown description here.
-  requestBody:
-    $ref: ../components/requestBodies/Customer.yaml
-  responses:
-    '201':
-      $ref: ../components/responses/Customer.yaml
-    '401':
-      $ref: ../components/responses/AccessForbidden.yaml
-    '409':
-      $ref: ../components/responses/Conflict.yaml
-    '422':
-      $ref: ../components/responses/InvalidDataError.yaml
-  x-code-samples:
-    - lang: PHP
-      source:
-        $ref: ../code_samples/PHP/customers/post.php
-```
-
-You'll see extensive usage of `$ref`s in this example to different types of components including schemas.
-
-You'll also notice `$ref`s to code samples.
-
-### Code samples
-
-1. Navigate to the `openapi/code_samples` folder.
-2. Navigate to the `<language>` (e.g. PHP) sub-folder.
-3. Navigate to the `path` folder, and add ref to the code sample.
-
-You can add languages by adding new folders at the appropriate path level.
-
-More details inside the `code_samples` folder README.
+The workflow tests the OpenAPI definition and generated TypeScript client, builds the static Redoc page, and publishes it to GitHub Pages from the `main` branch.

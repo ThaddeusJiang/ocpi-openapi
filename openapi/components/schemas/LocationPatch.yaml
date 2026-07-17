@@ -1,5 +1,5 @@
 summary: Location receiver partial update object
-oneOf:
+anyOf:
 - $ref: ./LocationPartial.yaml
 - $ref: ./EVSEPartial.yaml
 - $ref: ./ConnectorPartial.yaml
