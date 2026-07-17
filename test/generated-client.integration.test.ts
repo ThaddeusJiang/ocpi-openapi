@@ -553,7 +553,7 @@ describe('generated OCPI TypeScript client', () => {
         String(port),
         '--dynamic',
         '--seed',
-        'ocpi-openapi-client-test',
+        'ocpi-client-test',
         '--verboseLevel',
         'error',
       ],

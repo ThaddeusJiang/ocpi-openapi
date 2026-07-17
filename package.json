@@ -5,11 +5,11 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ThaddeusJiang/ocpi-openapi.git"
+    "url": "git+https://github.com/ThaddeusJiang/ocpi.git"
   },
-  "homepage": "https://github.com/ThaddeusJiang/ocpi-openapi#readme",
+  "homepage": "https://github.com/ThaddeusJiang/ocpi#readme",
   "bugs": {
-    "url": "https://github.com/ThaddeusJiang/ocpi-openapi/issues"
+    "url": "https://github.com/ThaddeusJiang/ocpi/issues"
   },
   "private": false,
   "type": "commonjs",
@@ -50,7 +50,7 @@
     "build:docs": "mkdir -p dist/pages && redocly build-docs openapi/openapi.yaml -o dist/pages/index.html && cp docs/favicon.png dist/pages/favicon.png && touch dist/pages/.nojekyll",
     "clean": "rm -rf dist || true",
     "generate:client": "npm run build:yaml && npm run build:client",
-    "mock": "npm run build:yaml && prism mock dist/yaml/openapi.yaml --host 127.0.0.1 --port 4010 --dynamic --seed ocpi-openapi",
+    "mock": "npm run build:yaml && prism mock dist/yaml/openapi.yaml --host 127.0.0.1 --port 4010 --dynamic --seed ocpi",
     "test": "npm run test:openapi && npm run typecheck && npm run test:coverage && npm run coverage:badge",
     "test:openapi": "redocly lint",
     "test:integration": "npm run generate:client && vitest run",

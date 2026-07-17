@@ -112,7 +112,7 @@ Publishing uses npm Trusted Publishing with GitHub Actions OIDC:
 - The workflow grants `id-token: write`.
 - The publish command is `npm publish --access public --provenance --tag next`.
 - `2.2.1-d2` is a prerelease version, so npm requires an explicit non-`latest` dist-tag. This package publishes it as `next`.
-- Configure npm package Trusted Publisher with owner `ThaddeusJiang`, repository `ocpi-openapi`, workflow filename `publish-npm.yaml`, and allowed action `npm publish`.
+- Configure npm package Trusted Publisher with owner `ThaddeusJiang`, repository `ocpi`, workflow filename `publish-npm.yaml`, and allowed action `npm publish`.
 
 Local terminal publishing cannot generate npm provenance because there is no supported CI/OIDC provider. If you need to publish locally, use `npm publish --access public --tag next` without `--provenance`.
 
