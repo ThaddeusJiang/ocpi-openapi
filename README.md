@@ -2,7 +2,7 @@
 
 ![Generated client coverage](docs/coverage.svg)
 
-OpenAPI 3.1 definitions for OCPI 2.2.1-d2, plus the generated TypeScript client package `@thaddeusjiang/ocpi` and an OpenAPI-driven mock server for integration testing.
+OpenAPI 3.1 definitions for OCPI 2.2.1-d2, plus the generated EMS TypeScript client package `@thaddeusjiang/ocpi` and an OpenAPI-driven mock server for integration testing.
 
 ## Install
 
@@ -19,6 +19,7 @@ npm run build
 `npm run build` produces:
 
 - `dist/yaml/openapi.yaml`: bundled OpenAPI document.
+- `dist/yaml/openapi.ems.yaml`: bundled EMS client subset used for TypeScript client generation.
 - `dist/dts/schema.d.ts`: OpenAPI TypeScript schema types.
 - `src/generated`: generated TypeScript request client from `@hey-api/openapi-ts`.
 
@@ -62,6 +63,20 @@ For the npm package dry-run:
 npm run pack:check
 ```
 
+For npm install regression testing against the package built from this checkout:
+
+```sh
+npm run test:regression:pack
+```
+
+For npm install regression testing against a published package:
+
+```sh
+npm run test:regression:npm
+```
+
+`test:regression:npm` installs `@thaddeusjiang/ocpi@next` by default. Override it with `OCPI_REGRESSION_PACKAGE`.
+
 ## Client Usage
 
 After the package is published:
@@ -73,6 +88,7 @@ npm install @thaddeusjiang/ocpi
 ```ts
 import { getVersions } from '@thaddeusjiang/ocpi';
 import { client } from '@thaddeusjiang/ocpi/client';
+import type { Credentials, Location } from '@thaddeusjiang/ocpi/types';
 
 client.setConfig({
   baseUrl: 'https://ocpi.example.com/2.2.1',
@@ -87,6 +103,8 @@ if (error) {
 
 console.log(data.data);
 ```
+
+The generated request client intentionally exposes only the EMSP-side operation surface. The complete OpenAPI bundle remains available as `@thaddeusjiang/ocpi/openapi.yaml`; the EMS client subset is available as `@thaddeusjiang/ocpi/openapi.ems.yaml`.
 
 ## Coverage
 
@@ -122,3 +140,7 @@ See npm's Trusted Publishing documentation: https://docs.npmjs.com/trusted-publi
 
 The OpenAPI reference is deployed from `.github/workflows/pages.yaml`.
 The workflow tests the OpenAPI definition and generated TypeScript client, builds the static Redoc page, and publishes it to GitHub Pages from the `main` branch.
+
+## Nightly Regression
+
+`.github/workflows/nightly-regression.yaml` runs every day at 03:00 Asia/Tokyo. By default it packs the current checkout, installs that tarball with `npm install`, validates runtime exports, and type-checks imports from the root package, `@thaddeusjiang/ocpi/client`, and `@thaddeusjiang/ocpi/types`. The manual workflow input can point the same regression test at a published npm package spec.

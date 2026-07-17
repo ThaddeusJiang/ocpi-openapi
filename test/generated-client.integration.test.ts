@@ -298,93 +298,6 @@ const operationCalls = {
   getConnector: () =>
     sdk.getConnector({
       path: {
-        location_id: paths.country_code,
-        evse_uid: paths.party_id,
-        connector_id: paths.location_id,
-      },
-    }),
-  getPushedLocationObject: () =>
-    sdk.getPushedLocationObject({
-      path: {
-        country_code: paths.country_code,
-        party_id: paths.party_id,
-        location_id: paths.location_id,
-      },
-    }),
-  patchLocationObject: () =>
-    sdk.patchLocationObject({
-      body: locationPatch,
-      path: {
-        country_code: paths.country_code,
-        party_id: paths.party_id,
-        location_id: paths.location_id,
-      },
-    }),
-  putLocationObject: () =>
-    sdk.putLocationObject({
-      body: location,
-      path: {
-        country_code: paths.country_code,
-        party_id: paths.party_id,
-        location_id: paths.location_id,
-      },
-    }),
-  getPushedLocationObjectEvse: () =>
-    sdk.getPushedLocationObjectEvse({
-      path: {
-        country_code: paths.country_code,
-        party_id: paths.party_id,
-        location_id: paths.location_id,
-        evse_uid: paths.evse_uid,
-      },
-    }),
-  patchLocationObjectEvse: () =>
-    sdk.patchLocationObjectEvse({
-      body: evsePatch,
-      path: {
-        country_code: paths.country_code,
-        party_id: paths.party_id,
-        location_id: paths.location_id,
-        evse_uid: paths.evse_uid,
-      },
-    }),
-  putLocationObjectEvse: () =>
-    sdk.putLocationObjectEvse({
-      body: location,
-      path: {
-        country_code: paths.country_code,
-        party_id: paths.party_id,
-        location_id: paths.location_id,
-        evse_uid: paths.evse_uid,
-      },
-    }),
-  getPushedLocationObjectConnector: () =>
-    sdk.getPushedLocationObjectConnector({
-      path: {
-        country_code: paths.country_code,
-        party_id: paths.party_id,
-        location_id: paths.location_id,
-        evse_uid: paths.evse_uid,
-        connector_id: paths.connector_id,
-      },
-    }),
-  patchLocationObjectConnector: () =>
-    sdk.patchLocationObjectConnector({
-      body: connectorPatch,
-      path: {
-        country_code: paths.country_code,
-        party_id: paths.party_id,
-        location_id: paths.location_id,
-        evse_uid: paths.evse_uid,
-        connector_id: paths.connector_id,
-      },
-    }),
-  putLocationObjectConnector: () =>
-    sdk.putLocationObjectConnector({
-      body: location,
-      path: {
-        country_code: paths.country_code,
-        party_id: paths.party_id,
         location_id: paths.location_id,
         evse_uid: paths.evse_uid,
         connector_id: paths.connector_id,
@@ -399,41 +312,14 @@ const operationCalls = {
         session_id: paths.session_id,
       },
     }),
-  patchSessionById: () =>
-    sdk.patchSessionById({
-      body: sessionPatch,
-      path: {
-        country_code: paths.country_code,
-        party_id: paths.party_id,
-        session_id: paths.session_id,
-      },
-    }),
-  putSessionById: () =>
-    sdk.putSessionById({
-      body: session,
-      path: {
-        country_code: paths.country_code,
-        party_id: paths.party_id,
-        session_id: paths.session_id,
-      },
-    }),
   setChargingPreferences: () =>
     sdk.setChargingPreferences({
       body: chargingPreferences,
       path: { session_id: paths.session_id },
     }),
   getCdrs: () => sdk.getCdrs({ query: collectionQuery }),
-  createCdr: () => sdk.createCdr({ body: cdr }),
   getCdrById: () => sdk.getCdrById({ path: { cdr_id: paths.cdr_id } }),
   getTariffs: () => sdk.getTariffs({ query: collectionQuery }),
-  deleteTariff: () =>
-    sdk.deleteTariff({
-      path: {
-        country_code: paths.country_code,
-        party_id: paths.party_id,
-        tariff_id: paths.tariff_id,
-      },
-    }),
   getTariffById: () =>
     sdk.getTariffById({
       path: {
@@ -441,25 +327,6 @@ const operationCalls = {
         party_id: paths.party_id,
         tariff_id: paths.tariff_id,
       },
-    }),
-  putTariff: () =>
-    sdk.putTariff({
-      body: tariff,
-      path: {
-        country_code: paths.country_code,
-        party_id: paths.party_id,
-        tariff_id: paths.tariff_id,
-      },
-    }),
-  getTokens: () => sdk.getTokens({ query: collectionQuery }),
-  getTokenById: () =>
-    sdk.getTokenById({
-      path: {
-        country_code: paths.country_code,
-        party_id: paths.party_id,
-        token_uid: paths.token_uid,
-      },
-      query: { type: 'RFID' },
     }),
   patchToken: () =>
     sdk.patchToken({
@@ -481,21 +348,10 @@ const operationCalls = {
       },
       query: { type: 'RFID' },
     }),
-  authorizeToken: () =>
-    sdk.authorizeToken({
-      body: locationReferences,
-      path: { token_uid: paths.token_uid },
-      query: { type: 'RFID' },
-    }),
   sendCommand: () =>
     sdk.sendCommand({
       body: command,
       path: { command: 'START_SESSION' },
-    }),
-  receiveCommandResult: () =>
-    sdk.receiveCommandResult({
-      body: commandResult,
-      path: { command: 'START_SESSION', uid: 'COMMAND1' },
     }),
   deleteChargingProfile: () =>
     sdk.deleteChargingProfile({
@@ -512,26 +368,6 @@ const operationCalls = {
       body: setChargingProfile,
       path: { session_id: paths.session_id },
     }),
-  receiveChargingProfileResult: () =>
-    sdk.receiveChargingProfileResult({
-      body: chargingProfileResult,
-      path: { session_id: paths.session_id },
-    }),
-  receiveActiveChargingProfileUpdate: () =>
-    sdk.receiveActiveChargingProfileUpdate({
-      body: activeChargingProfile,
-      path: { session_id: paths.session_id },
-    }),
-  getClientInfo: () =>
-    sdk.getClientInfo({
-      path: { country_code: paths.country_code, party_id: paths.party_id },
-    }),
-  putClientInfo: () =>
-    sdk.putClientInfo({
-      body: clientInfo,
-      path: { country_code: paths.country_code, party_id: paths.party_id },
-    }),
-  getHubClientInfos: () => sdk.getHubClientInfos({ query: collectionQuery }),
 } satisfies Record<string, OperationCall>;
 
 describe('generated OCPI TypeScript client', () => {
@@ -546,7 +382,7 @@ describe('generated OCPI TypeScript client', () => {
       prismBin,
       [
         'mock',
-        'dist/yaml/openapi.yaml',
+        'dist/yaml/openapi.ems.yaml',
         '--host',
         HOST,
         '--port',

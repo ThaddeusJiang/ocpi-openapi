@@ -26,11 +26,18 @@
       "require": "./dist/client/client.gen.js",
       "default": "./dist/client/client.gen.js"
     },
-    "./openapi.yaml": "./dist/yaml/openapi.yaml"
+    "./types": {
+      "types": "./dist/client/types.gen.d.ts",
+      "require": "./dist/client/types.gen.js",
+      "default": "./dist/client/types.gen.js"
+    },
+    "./openapi.yaml": "./dist/yaml/openapi.yaml",
+    "./openapi.ems.yaml": "./dist/yaml/openapi.ems.yaml"
   },
   "files": [
     "docs/coverage.svg",
     "dist/client",
+    "dist/yaml/openapi.ems.yaml",
     "dist/yaml/openapi.yaml",
     "README.md",
     "LICENSE"
@@ -42,19 +49,22 @@
   },
   "scripts": {
     "start": "redocly preview-docs",
-    "build": "npm run clean && npm run build:yaml && npm run build:dts && npm run build:client",
+    "build": "npm run clean && npm run build:yaml && npm run build:ems-yaml && npm run build:dts && npm run build:client",
     "build:yaml": "openapi bundle -o dist/yaml/openapi.yaml",
+    "build:ems-yaml": "node scripts/build-ems-openapi.mjs",
     "build:dts": "openapi-typescript dist/yaml/openapi.yaml -o dist/dts/schema.d.ts",
     "build:client": "openapi-ts",
     "build:package": "npm run build && tsc -p tsconfig.package.json",
     "build:docs": "mkdir -p dist/pages && redocly build-docs openapi/openapi.yaml -o dist/pages/index.html && cp docs/favicon.png dist/pages/favicon.png && touch dist/pages/.nojekyll",
     "clean": "rm -rf dist || true",
-    "generate:client": "npm run build:yaml && npm run build:client",
+    "generate:client": "npm run build:yaml && npm run build:ems-yaml && npm run build:client",
     "mock": "npm run build:yaml && prism mock dist/yaml/openapi.yaml --host 127.0.0.1 --port 4010 --dynamic --seed ocpi",
     "test": "npm run test:openapi && npm run typecheck && npm run test:coverage && npm run coverage:badge",
     "test:openapi": "redocly lint",
     "test:integration": "npm run generate:client && vitest run",
     "test:coverage": "npm run generate:client && vitest run --coverage",
+    "test:regression:npm": "node scripts/regression-test-npm-package.mjs",
+    "test:regression:pack": "node scripts/regression-test-packed-package.mjs",
     "typecheck": "npm run generate:client && tsc --noEmit",
     "coverage:badge": "node scripts/update-coverage-badge.mjs",
     "pack:check": "npm pack --dry-run",
@@ -68,6 +78,7 @@
     "@vitest/coverage-v8": "4.1.10",
     "openapi-typescript": "6.4.0",
     "typescript": "6.0.3",
-    "vitest": "4.1.10"
+    "vitest": "4.1.10",
+    "yaml": "2.9.0"
   }
 }
