@@ -1,20 +1,73 @@
 {
-  "name": "ocpi",
+  "name": "@thaddeusjiang/ocpi",
   "version": "2.2.1-d2",
-  "dependencies": {
-    "@redocly/cli": "1.5.0"
+  "description": "Generated TypeScript client for OCPI 2.2.1-d2.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThaddeusJiang/ocpi-openapi.git"
   },
-  "private": true,
+  "homepage": "https://github.com/ThaddeusJiang/ocpi-openapi#readme",
+  "bugs": {
+    "url": "https://github.com/ThaddeusJiang/ocpi-openapi/issues"
+  },
+  "private": false,
+  "type": "commonjs",
+  "main": "./dist/client/index.js",
+  "types": "./dist/client/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/client/index.d.ts",
+      "require": "./dist/client/index.js",
+      "default": "./dist/client/index.js"
+    },
+    "./client": {
+      "types": "./dist/client/client.gen.d.ts",
+      "require": "./dist/client/client.gen.js",
+      "default": "./dist/client/client.gen.js"
+    },
+    "./openapi.yaml": "./dist/yaml/openapi.yaml"
+  },
+  "files": [
+    "docs/coverage.svg",
+    "dist/client",
+    "dist/yaml/openapi.yaml",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public",
+    "tag": "next"
+  },
   "scripts": {
     "start": "redocly preview-docs",
-    "build": "npm run clean && npm run build:yaml && npm run build:dts",
+    "build": "npm run clean && npm run build:yaml && npm run build:dts && npm run build:client",
     "build:yaml": "openapi bundle -o dist/yaml/openapi.yaml",
     "build:dts": "openapi-typescript dist/yaml/openapi.yaml -o dist/dts/schema.d.ts",
+    "build:client": "openapi-ts",
+    "build:package": "npm run build && tsc -p tsconfig.package.json",
     "build:docs": "mkdir -p dist/pages && redocly build-docs openapi/openapi.yaml -o dist/pages/index.html && cp docs/favicon.png dist/pages/favicon.png && touch dist/pages/.nojekyll",
     "clean": "rm -rf dist || true",
-    "test": "redocly lint"
+    "generate:client": "npm run build:yaml && npm run build:client",
+    "mock": "npm run build:yaml && prism mock dist/yaml/openapi.yaml --host 127.0.0.1 --port 4010 --dynamic --seed ocpi-openapi",
+    "test": "npm run test:openapi && npm run typecheck && npm run test:coverage && npm run coverage:badge",
+    "test:openapi": "redocly lint",
+    "test:integration": "npm run generate:client && vitest run",
+    "test:coverage": "npm run generate:client && vitest run --coverage",
+    "typecheck": "npm run generate:client && tsc --noEmit",
+    "coverage:badge": "node scripts/update-coverage-badge.mjs",
+    "pack:check": "npm pack --dry-run",
+    "prepack": "npm run build:package"
   },
   "devDependencies": {
-    "openapi-typescript": "6.4.0"
+    "@hey-api/openapi-ts": "0.99.0",
+    "@redocly/cli": "1.5.0",
+    "@stoplight/prism-cli": "5.15.11",
+    "@types/node": "26.1.1",
+    "@vitest/coverage-v8": "4.1.10",
+    "openapi-typescript": "6.4.0",
+    "typescript": "6.0.3",
+    "vitest": "4.1.10"
   }
 }

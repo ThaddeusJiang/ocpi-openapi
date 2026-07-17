@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   test:
-    name: Test OpenAPI definition
+    name: Test OpenAPI and generated client
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -26,5 +26,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint OpenAPI definition
-        run: npm run test
+      - name: Test OpenAPI definition and generated TypeScript client
+        run: npm test
+
+      - name: Verify npm package can be packed
+        run: npm run pack:check
+
+      - name: Verify generated client and coverage badge are committed
+        run: |
+          if [ -n "$(git status --porcelain -- src/generated docs/coverage.svg)" ]; then
+            git status --short -- src/generated docs/coverage.svg
+            git diff -- src/generated docs/coverage.svg
+            exit 1
+          fi
