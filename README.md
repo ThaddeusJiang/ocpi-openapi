@@ -4,6 +4,8 @@
 
 OpenAPI 3.1 definitions for OCPI 2.2.1-d2, plus the generated EMS TypeScript client package `@thaddeusjiang/ocpi` and an OpenAPI-driven mock server for integration testing.
 
+The OpenAPI definition is the source of truth for both the protocol reference and the published SDK. The generated [SDK API reference](api.md) lists the exact EMSP-side request surface.
+
 ## Install
 
 ```sh
@@ -22,6 +24,7 @@ npm run build
 - `dist/yaml/openapi.ems.yaml`: bundled EMS client subset used for TypeScript client generation.
 - `dist/dts/schema.d.ts`: OpenAPI TypeScript schema types.
 - `src/generated`: generated TypeScript request client from `@hey-api/openapi-ts`.
+- `api.md`: generated mapping between SDK methods and OpenAPI operations.
 
 To regenerate only the TypeScript client:
 
@@ -63,7 +66,7 @@ For the npm package dry-run:
 npm run pack:check
 ```
 
-For npm install regression testing against the package built from this checkout:
+For npm install regression testing against the package built from this checkout, including TypeScript, CommonJS, and ESM consumers:
 
 ```sh
 npm run test:regression:pack
@@ -106,6 +109,16 @@ console.log(data.data);
 
 The generated request client intentionally exposes only the EMSP-side operation surface. The complete OpenAPI bundle remains available as `@thaddeusjiang/ocpi/openapi.yaml`; the EMS client subset is available as `@thaddeusjiang/ocpi/openapi.ems.yaml`.
 
+See [api.md](api.md) for every generated request method. Installed packages also expose it at `@thaddeusjiang/ocpi/api.md`.
+
+## Maintenance Contract
+
+Changes start in `openapi/`. `scripts/ems-client-operations.mjs` defines which OpenAPI operations belong to the EMSP SDK and records any generator naming differences. `npm run generate:client` then updates both `src/generated` and `api.md` from that contract.
+
+Pull requests fail when generated code, the SDK API reference, or the coverage badge is stale. They also install the packed tarball into an isolated consumer project and verify TypeScript, CommonJS, ESM, public subpath exports, and the exact EMSP method boundary.
+
+The durable behavior and acceptance criteria are documented in [the dual-artifact maintenance spec](docs/specs/001-dual-artifact-maintenance.md).
+
 ## Coverage
 
 The previous 39.32% line coverage happened because Vitest counted the whole generated Hey API runtime, including internal fetch helpers, serializers, and SSE support that are not part of the OCPI request operation surface exercised by the integration test.
@@ -143,4 +156,4 @@ The workflow tests the OpenAPI definition and generated TypeScript client, build
 
 ## Nightly Regression
 
-`.github/workflows/nightly-regression.yaml` runs every day at 03:00 Asia/Tokyo. By default it packs the current checkout, installs that tarball with `npm install`, validates runtime exports, and type-checks imports from the root package, `@thaddeusjiang/ocpi/client`, and `@thaddeusjiang/ocpi/types`. The manual workflow input can point the same regression test at a published npm package spec.
+`.github/workflows/nightly-regression.yaml` runs every day at 03:00 Asia/Tokyo. By default it packs the current checkout, installs that tarball with `npm install`, validates the exact EMSP method set and every public file export in CommonJS and ESM, and type-checks imports from the root package, `@thaddeusjiang/ocpi/client`, and `@thaddeusjiang/ocpi/types`. The manual workflow input can point the same regression test at a published npm package spec.
