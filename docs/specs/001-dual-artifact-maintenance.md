@@ -35,6 +35,8 @@ The feature has no runtime persistence. Durable state is stored in Git with thes
 
 Generated files must not be edited as independent sources. A change to generated behavior starts in `openapi/`, the EMSP boundary contract, or generator configuration.
 
+Repository metadata, examples, and test fixtures must use vendor-neutral project and example identities.
+
 ## Relationships
 
 - The complete OpenAPI document produces the published `openapi.yaml` export and static protocol documentation.

@@ -74,6 +74,7 @@ Useful focused commands:
 - Create a semantic branch such as `feat/...`, `fix/...`, or `docs/...`; do not implement changes directly on `main`.
 - Use semantic commit and pull request titles.
 - Keep dependencies pinned to exact stable versions.
+- Keep repository metadata, examples, and test fixtures vendor-neutral.
 - Do not change the package version on a feature branch.
 - Explain any public OpenAPI, SDK method, type, or package export change.
 - Confirm that generated source, `api.md`, and `docs/coverage.svg` are current.
