@@ -1,94 +1,29 @@
-# OCPI OpenAPI Definition
+# OCPI OpenAPI & TypeScript SDK
 
-![Generated client coverage](docs/coverage.svg)
+[![npm version](https://img.shields.io/npm/v/@thaddeusjiang/ocpi.svg)](https://www.npmjs.com/package/@thaddeusjiang/ocpi)
+![Generated SDK coverage](docs/coverage.svg)
 
-OpenAPI 3.1 definitions for OCPI 2.2.1-d2, plus the generated EMS TypeScript client package `@thaddeusjiang/ocpi` and an OpenAPI-driven mock server for integration testing.
+OpenAPI 3.1 definitions for OCPI 2.2.1-d2 and the generated `@thaddeusjiang/ocpi` TypeScript SDK.
 
-## Install
+The complete OpenAPI definition is the source of truth for the protocol reference. The published SDK intentionally exposes only the 23 request methods used by an e-Mobility Service Provider (EMSP); it does not expose the CPO-side operation surface.
 
-```sh
-npm ci
-```
+- [OpenAPI reference](https://thaddeusjiang.github.io/ocpi/)
+- [SDK API reference](api.md)
+- [npm package](https://www.npmjs.com/package/@thaddeusjiang/ocpi)
 
-## Generate
-
-```sh
-npm run build
-```
-
-`npm run build` produces:
-
-- `dist/yaml/openapi.yaml`: bundled OpenAPI document.
-- `dist/yaml/openapi.ems.yaml`: bundled EMS client subset used for TypeScript client generation.
-- `dist/dts/schema.d.ts`: OpenAPI TypeScript schema types.
-- `src/generated`: generated TypeScript request client from `@hey-api/openapi-ts`.
-
-To regenerate only the TypeScript client:
-
-```sh
-npm run generate:client
-```
-
-To build the npm package output:
-
-```sh
-npm run build:package
-```
-
-## Mock Server
-
-```sh
-npm run mock
-```
-
-The mock server is generated from the bundled OpenAPI document with Prism and listens on `http://127.0.0.1:4010`.
-
-## Test
-
-```sh
-npm test
-```
-
-The test command lints the OpenAPI definition, regenerates the TypeScript client, type-checks the generated code, starts a generated Prism mock server, runs every generated SDK operation against it, enforces 100% coverage for the generated public client surface, and updates `docs/coverage.svg`.
-
-For only the generated client integration test:
-
-```sh
-npm run test:integration
-```
-
-For the npm package dry-run:
-
-```sh
-npm run pack:check
-```
-
-For npm install regression testing against the package built from this checkout:
-
-```sh
-npm run test:regression:pack
-```
-
-For npm install regression testing against a published package:
-
-```sh
-npm run test:regression:npm
-```
-
-`test:regression:npm` installs `@thaddeusjiang/ocpi@next` by default. Override it with `OCPI_REGRESSION_PACKAGE`.
-
-## Client Usage
-
-After the package is published:
+## Installation
 
 ```sh
 npm install @thaddeusjiang/ocpi
 ```
 
+## Quick Start
+
+Configure the generated client with the OCPI endpoint and authorization header expected by your counterparty:
+
 ```ts
 import { getVersions } from '@thaddeusjiang/ocpi';
 import { client } from '@thaddeusjiang/ocpi/client';
-import type { Credentials, Location } from '@thaddeusjiang/ocpi/types';
 
 client.setConfig({
   baseUrl: 'https://ocpi.example.com/2.2.1',
@@ -101,46 +36,84 @@ if (error) {
   throw new Error(`OCPI request failed with status ${response?.status}`);
 }
 
-console.log(data.data);
+console.log(data?.data);
 ```
 
-The generated request client intentionally exposes only the EMSP-side operation surface. The complete OpenAPI bundle remains available as `@thaddeusjiang/ocpi/openapi.yaml`; the EMS client subset is available as `@thaddeusjiang/ocpi/openapi.ems.yaml`.
+By default, request methods return the parsed `data`, parsed `error`, and native `response`. Configure `throwOnError: true` on the client or an individual request when exception-based handling is preferable.
 
-## Coverage
+## SDK Usage
 
-The previous 39.32% line coverage happened because Vitest counted the whole generated Hey API runtime, including internal fetch helpers, serializers, and SSE support that are not part of the OCPI request operation surface exercised by the integration test.
+All request methods are exported from the package root. Client configuration and generated OCPI types also have stable subpath exports:
 
-The badge now measures the generated public client surface:
+```ts
+import { getLocations } from '@thaddeusjiang/ocpi';
+import { client } from '@thaddeusjiang/ocpi/client';
+import type { Location } from '@thaddeusjiang/ocpi/types';
 
-- `src/generated/client.gen.ts`
-- `src/generated/index.ts`
-- `src/generated/sdk.gen.ts`
+client.setConfig({
+  baseUrl: 'https://ocpi.example.com/2.2.1',
+  auth: 'Token your-ocpi-token',
+});
 
-Vitest enforces 100% statements, branches, functions, and lines for those files.
+const result = await getLocations({
+  query: {
+    limit: 100,
+    offset: 0,
+  },
+});
 
-## npm Publishing
+const locations: Location[] = result.data?.data ?? [];
+const nextPage = result.response?.headers.get('Link');
+```
 
-`.github/workflows/publish-npm.yaml` publishes `@thaddeusjiang/ocpi` when a GitHub Release is published, or when the workflow is manually run with a release tag.
+The generated client returns one collection page at a time. Use the OCPI `Link`, `X-Total-Count`, and `X-Limit` response headers to continue pagination.
 
-Release tags must match `package.json` version after removing an optional leading `v`, for example `v2.2.1-d2` matches `2.2.1-d2`.
+See [api.md](api.md) for the complete SDK method-to-OpenAPI operation mapping.
 
-Publishing uses npm Trusted Publishing with GitHub Actions OIDC:
+## OpenAPI Documents
 
-- No `npm_token` or `NPM_TOKEN` is used.
-- The workflow grants `id-token: write`.
-- The publish command is `npm publish --access public --provenance --tag next`.
-- `2.2.1-d2` is a prerelease version, so npm requires an explicit non-`latest` dist-tag. This package publishes it as `next`.
-- Configure npm package Trusted Publisher with owner `ThaddeusJiang`, repository `ocpi`, workflow filename `publish-npm.yaml`, and allowed action `npm publish`.
+The repository and npm package provide two OpenAPI documents:
 
-Local terminal publishing cannot generate npm provenance because there is no supported CI/OIDC provider. If you need to publish locally, use `npm publish --access public --tag next` without `--provenance`.
+| Document | Scope | npm package export |
+| --- | --- | --- |
+| `openapi/openapi.yaml` | Complete modeled OCPI 2.2.1-d2 protocol | `@thaddeusjiang/ocpi/openapi.yaml` |
+| `dist/yaml/openapi.ems.yaml` | EMSP subset used to generate the SDK | `@thaddeusjiang/ocpi/openapi.ems.yaml` |
 
-See npm's Trusted Publishing documentation: https://docs.npmjs.com/trusted-publishers/
+Browse the complete document in the [hosted OpenAPI reference](https://thaddeusjiang.github.io/ocpi/).
 
-## GitHub Pages
+To run a dynamic mock server from the complete OpenAPI document:
 
-The OpenAPI reference is deployed from `.github/workflows/pages.yaml`.
-The workflow tests the OpenAPI definition and generated TypeScript client, builds the static Redoc page, and publishes it to GitHub Pages from the `main` branch.
+```sh
+npm ci
+npm run mock
+```
 
-## Nightly Regression
+The mock server listens on `http://127.0.0.1:4010`.
 
-`.github/workflows/nightly-regression.yaml` runs every day at 03:00 Asia/Tokyo. By default it packs the current checkout, installs that tarball with `npm install`, validates runtime exports, and type-checks imports from the root package, `@thaddeusjiang/ocpi/client`, and `@thaddeusjiang/ocpi/types`. The manual workflow input can point the same regression test at a published npm package spec.
+## Compatibility
+
+- Protocol: OCPI 2.2.1-d2.
+- SDK role: EMSP-side request methods only.
+- Module loading: CommonJS output, regression-tested through both CommonJS `require` and ESM `import`.
+- Runtime validation: CI and packed-package consumer tests currently run on Node.js 24. Older Node.js releases and browser bundlers are not yet part of the tested compatibility contract.
+
+## Development
+
+```sh
+npm ci
+npm run generate:client
+npm test
+npm run test:regression:pack
+```
+
+Generated SDK source and `api.md` must stay synchronized with the OpenAPI definition. Pull request CI rejects stale generated artifacts and validates the packed npm package from an isolated consumer project.
+
+See [CONTRIBUTING.md](https://github.com/ThaddeusJiang/ocpi/blob/main/CONTRIBUTING.md) for the development workflow and [the dual-artifact maintenance spec](https://github.com/ThaddeusJiang/ocpi/blob/main/docs/specs/001-dual-artifact-maintenance.md) for the durable product contract.
+
+## Release
+
+Releases use GitHub Actions and npm Trusted Publishing. See [docs/releasing.md](https://github.com/ThaddeusJiang/ocpi/blob/main/docs/releasing.md) for the release checklist, version/tag contract, and publishing configuration.
+
+## License
+
+[Apache-2.0](LICENSE)

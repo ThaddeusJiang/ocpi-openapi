@@ -32,7 +32,7 @@ const AUTH_TOKEN = 'Token integration-token';
 const DATE_TIME = '2015-06-29T20:39:09Z';
 const RESPONSE_URL = 'https://example.com/ocpi/callback';
 const COUNTRY_CODE = 'JP';
-const PARTY_ID = 'PLG';
+const PARTY_ID = 'EXA';
 
 type ClientResult = {
   error?: unknown;
@@ -90,7 +90,7 @@ const credentials: Credentials = {
   roles: {
     role: 'CPO',
     business_details: {
-      name: 'Plugo',
+      name: 'Example Operator',
     },
     party_id: PARTY_ID,
     country_code: COUNTRY_CODE,
@@ -102,8 +102,8 @@ const token: Token = {
   party_id: PARTY_ID,
   uid: 'TOKEN1',
   type: 'RFID',
-  contract_id: 'JP-PLG-C123456',
-  issuer: 'Plugo',
+  contract_id: 'JP-EXA-C123456',
+  issuer: 'Example Provider',
   valid: true,
   whitelist: 'ALLOWED',
   last_updated: DATE_TIME,
@@ -146,7 +146,7 @@ const cdrToken = {
   party_id: PARTY_ID,
   uid: 'TOKEN1',
   type: 'RFID',
-  contract_id: 'JP-PLG-C123456',
+  contract_id: 'JP-EXA-C123456',
 } as const;
 
 const session: Session = {
@@ -185,7 +185,7 @@ const cdr: Cdr = {
     country: 'JPN',
     coordinates,
     evse_uid: 'EVSE1',
-    evse_id: 'JP*PLG*E1',
+    evse_id: 'JP*EXA*E1',
     connector_id: '1',
     connector_standard: 'IEC_62196_T2',
     connector_format: 'CABLE',

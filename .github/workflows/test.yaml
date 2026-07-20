@@ -32,10 +32,13 @@ jobs:
       - name: Verify npm package can be packed
         run: npm run pack:check
 
-      - name: Verify generated client and coverage badge are committed
+      - name: Test packed package in TypeScript, CommonJS, and ESM consumers
+        run: npm run test:regression:pack
+
+      - name: Verify generated SDK, API reference, and coverage badge are committed
         run: |
-          if [ -n "$(git status --porcelain -- src/generated docs/coverage.svg)" ]; then
-            git status --short -- src/generated docs/coverage.svg
-            git diff -- src/generated docs/coverage.svg
+          if [ -n "$(git status --porcelain -- src/generated api.md docs/coverage.svg)" ]; then
+            git status --short -- src/generated api.md docs/coverage.svg
+            git diff -- src/generated api.md docs/coverage.svg
             exit 1
           fi

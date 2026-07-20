@@ -3,8 +3,8 @@ info:
   version: 2.2.1-d2
   title: OCPI
   contact:
-    email: dev@plugo.co.jp
-    url: https://plugo.co.jp/
+    name: OCPI maintainers
+    url: https://github.com/ThaddeusJiang/ocpi
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
