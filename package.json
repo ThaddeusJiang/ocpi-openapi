@@ -1,6 +1,6 @@
 {
   "name": "@thaddeusjiang/ocpi",
-  "version": "2.2.1-d2",
+  "version": "2.2.1-d2.20260720",
   "description": "Generated TypeScript client for OCPI 2.2.1-d2.",
   "license": "Apache-2.0",
   "repository": {

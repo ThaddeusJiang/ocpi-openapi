@@ -5,12 +5,14 @@ The npm package is published from GitHub Actions with npm Trusted Publishing. A 
 ## Release Contract
 
 - The release tag must equal the `package.json` version with an optional leading `v`.
+- The package version appends an Asia/Tokyo release date to the OCPI specification version: `2.2.1-d2.YYYYMMDD`.
+- A second release on the same date appends a numeric sequence, for example `2.2.1-d2.20260720.1`.
 - Package version changes happen directly on `main` as a dedicated version and release-metadata change, not on feature branches.
 - `.github/workflows/publish-npm.yaml` currently publishes with the npm `next` dist-tag.
 - CI publishing uses OpenID Connect provenance and does not use `npm_token` or `NPM_TOKEN`.
 - A release must not proceed until configuration, environment, deployment, runtime, and workflow changes have been reviewed and explicitly approved.
 
-For example, tag `v2.2.1-d2` matches package version `2.2.1-d2`.
+For example, tag `v2.2.1-d2.20260720` matches package version `2.2.1-d2.20260720`.
 
 ## Checklist
 
@@ -31,7 +33,7 @@ For example, tag `v2.2.1-d2` matches package version `2.2.1-d2`.
 7. Run the published-package regression against the released version:
 
    ```sh
-   OCPI_REGRESSION_PACKAGE='@thaddeusjiang/ocpi@2.2.1-d2' npm run test:regression:npm
+   OCPI_REGRESSION_PACKAGE='@thaddeusjiang/ocpi@2.2.1-d2.20260720' npm run test:regression:npm
    ```
 
 The release workflow can also be started manually with a matching tag through `workflow_dispatch`.
